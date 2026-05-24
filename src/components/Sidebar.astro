@@ -1,0 +1,131 @@
+---
+interface Props {
+  lang: string;
+  t: Record<string, any>;
+}
+
+const { lang, t } = Astro.props;
+const otherLang = lang === 'es' ? 'en' : 'es';
+
+const navOrder = ['about', 'projects', 'skills', 'experience', 'contact'] as const;
+---
+
+<aside
+  class="fixed left-0 top-0 z-50 flex h-screen w-56 flex-col border-r
+         border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950"
+>
+  <!-- UPPER — Profile -->
+  <div class="flex flex-col items-center gap-2 px-4 pt-8 pb-4">
+    <img
+      src="/avatar.jpg"
+      alt={t.hero.name}
+      class="h-20 w-20 rounded-full object-cover ring-2 ring-cyan-400/40"
+    />
+    <p class="text-center text-sm font-bold text-gray-900 dark:text-gray-100">
+      {t.hero.name}
+    </p>
+    <p class="text-center font-mono text-[0.65rem] uppercase tracking-wider text-gray-500 dark:text-gray-400">
+      Full-Stack Developer
+    </p>
+  </div>
+
+  <!-- MIDDLE — Controls -->
+  <div class="flex flex-col gap-2 border-t border-gray-200 px-4 py-3 dark:border-gray-800">
+    <!-- Language switch -->
+    <a
+      href={`/${otherLang}/`}
+      class="flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5
+             text-xs font-medium text-gray-600 transition-colors
+             hover:bg-gray-100 hover:text-gray-900
+             dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100"
+    >
+      <span class="text-sm">🌐</span>
+      {t.langSwitcher}
+    </a>
+
+    <!-- Separator -->
+    <div class="h-px bg-gray-200 dark:bg-gray-800"></div>
+
+    <!-- Theme toggle -->
+    <button
+      id="theme-toggle"
+      type="button"
+      class="flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5
+             text-xs font-medium text-gray-600 transition-colors
+             hover:bg-gray-100 hover:text-gray-900
+             dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100"
+      aria-label="Toggle theme"
+    >
+      <span id="theme-icon" class="text-sm">🌙</span>
+    </button>
+  </div>
+
+  <!-- MAIN — Navigation -->
+  <nav class="flex-1 overflow-y-auto border-t border-gray-200 px-3 py-4 dark:border-gray-800">
+    <ul class="flex flex-col gap-1">
+      {navOrder.map((key) => (
+        <li>
+          <a
+            href={`#${key}`}
+            data-section={key}
+            class="block rounded-md px-3 py-2 text-sm font-medium
+                   text-gray-600 transition-colors
+                   hover:bg-gray-100 hover:text-gray-900
+                   dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100
+                   [&.active]:text-cyan-500 [&.active]:bg-cyan-500/10
+                   dark:[&.active]:text-cyan-400 dark:[&.active]:bg-cyan-400/10"
+          >
+            {t.nav[key]}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  <!-- BOTTOM — Location -->
+  <div class="border-t border-gray-200 px-4 py-4 dark:border-gray-800">
+    <p class="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400">
+      <span>📍</span>
+      Cochabamba, Bolivia
+    </p>
+  </div>
+</aside>
+
+<script>
+  // --- Theme Toggle ---
+  const toggle = document.getElementById('theme-toggle');
+  const icon = document.getElementById('theme-icon');
+
+  function updateIcon() {
+    if (icon) {
+      icon.textContent = document.documentElement.classList.contains('dark') ? '🌙' : '☀️';
+    }
+  }
+
+  updateIcon();
+
+  toggle?.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    const isDark = document.documentElement.classList.contains('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    updateIcon();
+  });
+
+  // --- Scroll Spy ---
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('[data-section]');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      links.forEach(link => {
+        link.classList.toggle(
+          'active',
+          (link as HTMLElement).dataset.section === entry.target.id
+        );
+      });
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => observer.observe(s));
+</script>

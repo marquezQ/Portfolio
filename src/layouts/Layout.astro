@@ -1,19 +1,53 @@
 ---
 import '../styles/global.css';
+import Sidebar from '../components/Sidebar.astro';
 
 interface Props {
-  title: string;
+  lang: string;
+  t: Record<string, any>;
 }
-const { title } = Astro.props;
+
+const { lang, t } = Astro.props;
 ---
 
-<html lang="es">
+<html lang={lang} class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
+    <meta name="description" content={t.hero.bio} />
+    <title>{t.hero.name} — Portfolio</title>
+
+    <!-- hreflang SEO -->
+    <link rel="alternate" hreflang="es" href="https://pedromarquez.dev/es/" />
+    <link rel="alternate" hreflang="en" href="https://pedromarquez.dev/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://pedromarquez.dev/es/" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Prevent theme flash: read localStorage BEFORE paint -->
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem('theme');
+        if (stored === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   </head>
-  <body class="bg-white text-gray-900 antialiased">
-    <slot />
+
+  <body class="bg-gray-50 text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100">
+    <div class="flex">
+      <!-- Sidebar — fixed, does not scroll -->
+      <Sidebar lang={lang} t={t} />
+
+      <!-- Main — scrollable content area offset by sidebar width -->
+      <main
+        class="custom-scrollbar ml-56 min-h-screen flex-1 overflow-y-auto"
+      >
+        <slot />
+      </main>
+    </div>
   </body>
 </html>

@@ -1,0 +1,30 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import es from '../../i18n/es.json';
+import en from '../../i18n/en.json';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'es' } },
+    { params: { lang: 'en' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = lang === 'es' ? es : en;
+
+const navOrder = ['about', 'projects', 'skills', 'experience', 'contact'] as const;
+---
+
+<Layout lang={lang} t={t}>
+  {navOrder.map((key) => (
+    <section id={key} class="min-h-screen p-16">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100">
+        {t.nav[key]}
+      </h2>
+      <p class="mt-4 text-gray-500 dark:text-gray-400">
+        Section placeholder — {key}
+      </p>
+    </section>
+  ))}
+</Layout>

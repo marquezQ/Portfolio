@@ -1,1 +1,26 @@
 @import "tailwindcss";
+
+/* Tailwind v4: dark mode via class strategy */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Smooth scrolling */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar for main content */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: theme(--color-gray-600);
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: theme(--color-gray-500);
+  }
+}
