@@ -1,0 +1,155 @@
+{
+  "hero": {
+    "name": "Pedro Marquez Quiroz",
+    "title": "Full-Stack Developer · React · NestJS · PostgreSQL",
+    "bio": "Systems Engineer specialized in full-stack development with React, NestJS and PostgreSQL. I build applications with authentication, role-based access control, real-time communication and scalable backend architectures. I currently integrate AI agents into my development workflow to speed up execution while keeping focus on architectural decisions and output quality. I continuously advance in cloud infrastructure and CI/CD pipelines — areas where I already have hands-on experience and keep going deeper.",
+    "stack": ["React", "TypeScript", "NestJS", "PostgreSQL", "AWS", "Docker"],
+    "buttons": {
+      "projects": "View Projects",
+      "cv": "Download CV",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "contact": "Contact Me"
+    }
+  },
+
+  "projects": {
+    "title": "Featured Projects",
+    "items": [
+      {
+        "id": "fastcashier",
+        "name": "FastCashier",
+        "subtitle": "Point of Sale System (POS)",
+        "description": "Modern POS system for fast food businesses with sales management, cash register, kitchen workflow and real-time communication between stations.",
+        "features": [
+          "JWT authentication and role-based access control",
+          "Real-time communication via WebSockets",
+          "Kitchen order queue system",
+          "PDF ticket generation",
+          "Sales reports and management",
+          "Cloud deployment on AWS EC2 with HTTPS, Nginx and Cloudflare"
+        ],
+        "technologies": [
+          "React",
+          "TypeScript",
+          "Tailwind CSS",
+          "shadcn/ui",
+          "React Query",
+          "NestJS",
+          "PostgreSQL",
+          "TypeORM",
+          "WebSockets",
+          "AWS",
+          "Nginx"
+        ],
+        "links": {
+          "demo": "Live Demo",
+          "github": "GitHub Repository"
+        }
+      },
+      {
+        "id": "carpinpro",
+        "name": "CarpinPro",
+        "subtitle": "Carpentry Services Platform",
+        "description": "Platform developed as a degree project that connects clients with local carpenters through verified profiles, work catalogs and interactive maps. The goal was to give carpenters a digital presence without relying on social media.",
+        "note": "Backend built with Laravel due to academic project requirements. Current stack: NestJS.",
+        "features": [
+          "Role-based access control",
+          "Carpenter profiles and catalogs with images",
+          "Reviews and ratings system",
+          "Interactive maps with geolocation",
+          "REST API with relational database design"
+        ],
+        "technologies": [
+          "React",
+          "TypeScript",
+          "Laravel",
+          "PostgreSQL",
+          "Leaflet",
+          "Tailwind CSS"
+        ],
+        "links": {
+          "demo": "Live Demo",
+          "github": "GitHub Repository"
+        }
+      }
+    ]
+  },
+
+  "skills": {
+    "title": "Technical Skills",
+    "categories": [
+      {
+        "name": "Frontend",
+        "items": ["React", "TypeScript", "Tailwind CSS", "shadcn/ui", "React Query", "Bootstrap", "Material UI", "Vite"]
+      },
+      {
+        "name": "Backend",
+        "items": ["NestJS", "Node.js", "Laravel", "Java"]
+      },
+      {
+        "name": "Databases",
+        "items": ["PostgreSQL", "MySQL"]
+      },
+      {
+        "name": "DevOps & Cloud",
+        "items": ["AWS EC2", "Docker", "GitHub Actions", "Nginx", "Cloudflare", "Linux"]
+      }
+    ]
+  },
+
+  "experience": {
+    "title": "Experience",
+    "items": [
+      {
+        "id": "admin-lab",
+        "role": "Computer Lab Administrator",
+        "company": "UMSS",
+        "period": "Jan 2025 – Jan 2026",
+        "description": "Managed the lab's technology infrastructure, coordinated lab assistants, provided technical support and taught intensive computer maintenance courses."
+      },
+      {
+        "id": "auxiliar-lab",
+        "role": "Computer Lab Assistant",
+        "company": "UMSS",
+        "period": "Jun 2024 – Dec 2024",
+        "description": "Provided technical support, equipment maintenance and user assistance across the computer lab."
+      },
+      {
+        "id": "frontend-ez",
+        "role": "Frontend Developer",
+        "company": "EzDevelopment",
+        "period": "Feb 2024 – May 2024",
+        "description": "Built responsive web interfaces for a condominium management system using React, TypeScript and Bootstrap, working under Scrum methodology."
+      },
+      {
+        "id": "pasante-dtic",
+        "role": "Software Development Intern",
+        "company": "DTIC UMSS",
+        "period": "Sep 2023 – Dec 2023",
+        "description": "Developed web applications with Node.js and React, managed PostgreSQL databases and served as Scrum Master within an agile development team."
+      }
+    ]
+  },
+
+  "contact": {
+    "title": "Let's Connect",
+    "description": "I'm open to opportunities in full-stack development, backend engineering and cloud applications.",
+    "location": "Cochabamba, Bolivia",
+    "links": {
+      "email": "Email",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    }
+  },
+
+  "nav": {
+    "about": "About",
+    "projects": "Projects",
+    "skills": "Skills",
+    "experience": "Experience",
+    "contact": "Contact"
+  },
+
+  "langSwitcher": "Español"
+}
