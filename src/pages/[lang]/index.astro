@@ -18,11 +18,11 @@ const navOrder = ['about', 'projects', 'skills', 'experience', 'contact'] as con
 
 <Layout lang={lang} t={t}>
   {navOrder.map((key) => (
-    <section id={key} class="min-h-screen p-16">
-      <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100">
+    <section id={key} class="min-h-screen p-8 md:p-16">
+      <h2 class="text-3xl font-bold">
         {t.nav[key]}
       </h2>
-      <p class="mt-4 text-gray-500 dark:text-gray-400">
+      <p class="mt-4 text-muted">
         Section placeholder — {key}
       </p>
     </section>
