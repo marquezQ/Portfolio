@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Sidebar from '../components/Sidebar.astro';
+import { Icon } from 'astro-icon/components';
 
 interface Props {
   lang: string;
@@ -36,14 +37,87 @@ const { lang, t } = Astro.props;
   </head>
 
   <body>
-    <div class="flex">
-      <!-- Sidebar — fixed, does not scroll -->
-      <Sidebar lang={lang} t={t} />
+    <!-- Drawer Backdrop (mobile only) -->
+    <div
+      id="sidebar-backdrop"
+      class="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none
+             transition-opacity duration-300 lg:hidden"
+    ></div>
 
-      <!-- Main — scrollable content area offset by sidebar width -->
-      <main class="ml-56 min-h-screen flex-1 overflow-y-auto">
-        <slot />
+    <div class="flex h-screen overflow-hidden">
+      <!-- Sidebar container — Drawer on mobile, Sticky on desktop -->
+      <div
+        id="sidebar-wrapper"
+        class="fixed inset-y-0 left-0 z-50 w-76 p-4 -translate-x-full transition-transform duration-300
+               lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen lg:shrink-0 lg:p-4 lg:w-80"
+      >
+        <Sidebar lang={lang} t={t} />
+      </div>
+
+      <!-- Main content column — flex container spanning full height -->
+      <main class="flex-1 flex flex-col h-screen min-w-0">
+        <!-- Header / Breadcrumb — aligned with sidebar top edge, completely clean -->
+        <header
+          class="shrink-0 flex items-center justify-between w-full
+                 px-8 pt-8 pb-5 font-mono text-xs text-muted md:px-16
+                 lg:pt-8 lg:pb-6"
+        >
+          <div class="flex items-center gap-2.5">
+            <!-- Mobile Menu button -->
+            <button
+              id="menu-toggle"
+              class="lg:hidden p-1 -ml-1 text-muted hover:text-text hover:bg-hover rounded transition-colors duration-200"
+              aria-label="Toggle menu"
+            >
+              <Icon name="lucide:menu" class="w-5 h-5" />
+            </button>
+            <Icon name="lucide:terminal" class="w-4 h-4 text-accent" />
+            <span id="breadcrumb-text">PORTFOLIO OS - {t.nav.about.toUpperCase()}</span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="text-dim">V1.0.0</span>
+          </div>
+        </header>
+
+        <!-- Section content area — scrollable container starting below the header -->
+        <div class="flex-1 overflow-y-auto w-full px-8 md:px-16 pb-12">
+          <div class="mx-auto max-w-3xl">
+            <slot />
+          </div>
+        </div>
       </main>
     </div>
+
+    <!-- Client-side drawer behavior -->
+    <script>
+      function initDrawer() {
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebarWrapper = document.getElementById('sidebar-wrapper');
+        const backdrop = document.getElementById('sidebar-backdrop');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        if (!menuToggle || !sidebarWrapper || !backdrop) return;
+
+        const openDrawer = () => {
+          sidebarWrapper.classList.remove('-translate-x-full');
+          backdrop.classList.add('opacity-100', 'pointer-events-auto');
+          backdrop.classList.remove('opacity-0', 'pointer-events-none');
+        };
+
+        const closeDrawer = () => {
+          sidebarWrapper.classList.add('-translate-x-full');
+          backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+          backdrop.classList.add('opacity-0', 'pointer-events-none');
+        };
+
+        menuToggle.addEventListener('click', openDrawer);
+        backdrop.addEventListener('click', closeDrawer);
+        navLinks.forEach(link => link.addEventListener('click', closeDrawer));
+      }
+
+      initDrawer();
+      document.addEventListener('astro:after-swap', initDrawer);
+    </script>
   </body>
 </html>

@@ -1,5 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import About from '../../components/sections/About.astro';
+import Projects from '../../components/sections/Projects.astro';
+import Skills from '../../components/sections/Skills.astro';
+import Experience from '../../components/sections/Experience.astro';
+import Contact from '../../components/sections/Contact.astro';
+
 import es from '../../i18n/es.json';
 import en from '../../i18n/en.json';
 
@@ -12,19 +18,12 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params;
 const t = lang === 'es' ? es : en;
-
-const navOrder = ['about', 'projects', 'skills', 'experience', 'contact'] as const;
 ---
 
 <Layout lang={lang} t={t}>
-  {navOrder.map((key) => (
-    <section id={key} class="min-h-screen p-8 md:p-16">
-      <h2 class="text-3xl font-bold">
-        {t.nav[key]}
-      </h2>
-      <p class="mt-4 text-muted">
-        Section placeholder — {key}
-      </p>
-    </section>
-  ))}
+  <About t={t} />
+  <Projects t={t} />
+  <Skills t={t} />
+  <Experience t={t} />
+  <Contact t={t} />
 </Layout>
