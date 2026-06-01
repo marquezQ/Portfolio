@@ -58,8 +58,18 @@ accede a sus claves: `t.hero.*`, `t.projects.*`, `t.skills.*`, etc.
 
 1. Crear archivo en `src/components/sections/NuevaSeccion.astro`
 2. El `<section>` debe tener un `id` único que coincida con la clave en `t.nav`
-3. Incluir `min-h-screen` para que el scroll spy funcione
-4. Usar `.section-label` para el encabezado estilo terminal
-5. Importar y agregar en `src/pages/[lang]/index.astro`
-6. Agregar la clave del nav en ambos JSONs de i18n
-7. Agregar el item en `navItems` de `Sidebar.astro` con su ícono lucide
+3. Usar `min-h-[70vh]` o `min-h-screen` y espaciado vertical (`py-12 md:py-20`) para mantener alineación y permitir al scroll spy funcionar
+4. Importar y agregar en `src/pages/[lang]/index.astro`
+5. Agregar la clave del nav en ambos JSONs de i18n
+6. Agregar el item en `navItems` de `Sidebar.astro` con su ícono lucide
+7. El título de la sección se muestra dinámicamente en el breadcrumb superior, evitando repetir títulos estilo terminal.
+
+## Detalles de Secciones
+
+### About (`src/components/sections/About.astro`)
+Presenta el perfil profesional del usuario. Contiene:
+- Pill animado con el rol/título actual.
+- Nombre y biografía extraídos de las traducciones.
+- Grid de badges tecnológicas interactivas generadas a partir de `t.hero.stack`.
+- Botón principal de descarga de CV con icono Lucide.
+- Enlaces de redes sociales (GitHub y LinkedIn) representados por sus logos correspondientes de Simple Icons.

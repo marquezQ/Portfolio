@@ -55,34 +55,34 @@ const { lang, t } = Astro.props;
       </div>
 
       <!-- Main content column — flex container spanning full height -->
-      <main class="flex-1 flex flex-col h-screen min-w-0">
-        <!-- Header / Breadcrumb — aligned with sidebar top edge, completely clean -->
-        <header
-          class="shrink-0 flex items-center justify-between w-full
-                 px-8 pt-8 pb-5 font-mono text-xs text-muted md:px-16
-                 lg:pt-8 lg:pb-6"
-        >
-          <div class="flex items-center gap-2.5">
-            <!-- Mobile Menu button -->
-            <button
-              id="menu-toggle"
-              class="lg:hidden p-1 -ml-1 text-muted hover:text-text hover:bg-hover rounded transition-colors duration-200"
-              aria-label="Toggle menu"
-            >
-              <Icon name="lucide:menu" class="w-5 h-5" />
-            </button>
-            <Icon name="lucide:terminal" class="w-4 h-4 text-accent" />
-            <span id="breadcrumb-text">PORTFOLIO OS - {t.nav.about.toUpperCase()}</span>
-          </div>
+      <main class="flex-1 flex flex-col h-screen min-w-0 overflow-hidden">
 
-          <div class="flex items-center gap-2">
-            <span class="text-dim">V1.0.0</span>
+        <!-- Header / Breadcrumb — outside scroll, always visible at the top -->
+        <div class="shrink-0 w-full">
+          <div class="max-w-7xl mx-auto px-4 md:px-6">
+            <header class="flex items-center justify-between w-full pt-8 pb-5 font-mono text-xs text-muted">
+              <div class="flex items-center gap-2.5">
+                <!-- Mobile Menu button -->
+                <button
+                  id="menu-toggle"
+                  class="lg:hidden p-1 -ml-1 text-muted hover:text-text hover:bg-hover rounded transition-colors duration-200"
+                  aria-label="Toggle menu"
+                >
+                  <Icon name="lucide:menu" class="w-5 h-5" />
+                </button>
+                <Icon name="lucide:terminal" class="w-4 h-4 text-accent" />
+                <span id="breadcrumb-text">PORTFOLIO OS - {t.nav.about.toUpperCase()}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-dim font-bold">V1.0.0</span>
+              </div>
+            </header>
           </div>
-        </header>
+        </div>
 
-        <!-- Section content area — scrollable container starting below the header -->
-        <div class="flex-1 overflow-y-auto w-full px-8 md:px-16 pb-12">
-          <div class="mx-auto max-w-3xl">
+        <!-- Scrollable content area — same max-width for perfect alignment -->
+        <div class="flex-1 overflow-y-auto w-full">
+          <div class="max-w-7xl mx-auto px-4 md:px-6 pb-12">
             <slot />
           </div>
         </div>

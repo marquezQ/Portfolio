@@ -1,14 +1,126 @@
 ---
+import { Icon } from 'astro-icon/components';
+
 interface Props {
+  lang: string;
   t: Record<string, any>;
 }
 
-const { t } = Astro.props;
+const { lang, t } = Astro.props;
+
+// Localized strings for details cards
+const isEs = lang === 'es';
+const eduTitle = isEs ? 'Educación' : 'Education';
+const eduText = isEs ? 'Universidad Mayor de San Simón' : 'Greater University of San Simón';
+const locTitle = isEs ? 'Ubicación' : 'Location';
+const locText = isEs ? 'Cochabamba, Bolivia' : 'Cochabamba, Bolivia';
 ---
 
-<section id="about" class="min-h-[70vh] py-12 md:py-20 flex flex-col justify-center">
-  <h2 class="text-4xl font-bold text-text tracking-tight">{t.nav.about}</h2>
-  <p class="mt-6 text-base text-muted leading-relaxed max-w-2xl">
-    {t.hero.bio}
-  </p>
+<section id="about" class="min-h-[80vh] py-12 md:py-20 flex flex-col justify-center gap-8">
+  <!-- Pill role indicator -->
+  <div
+    class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-accent-glow border border-accent/20 w-fit"
+  >
+    <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+    <span class="text-xs font-mono text-accent uppercase tracking-wider font-semibold">
+      {t.hero.title}
+    </span>
+  </div>
+
+  <!-- Big Name Title -->
+  <h1
+    class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-text tracking-tight"
+  >
+    {t.hero.name}
+  </h1>
+
+  <!-- All CTAs in a single priority-ordered row (Moved up here) -->
+  <div class="flex flex-wrap items-center gap-3">
+    <!-- Download CV — primary action -->
+    <a
+      href="#"
+      class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+             bg-accent text-bg font-mono font-bold text-xs tracking-wider uppercase
+             transition-all duration-200 shadow-md shadow-accent/10
+             hover:bg-accent-bright hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5 active:translate-y-0"
+    >
+      <Icon name="lucide:download" class="w-4 h-4 stroke-[2.5]" />
+      {t.hero.buttons.cv}
+    </a>
+
+    <!-- View Projects -->
+    <a
+      href="#projects"
+      class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+             bg-surface border border-border text-text font-mono font-bold text-xs tracking-wider uppercase
+             transition-all duration-200 hover:border-accent/40 hover:bg-hover hover:-translate-y-0.5 active:translate-y-0"
+    >
+      <Icon name="lucide:code-2" class="w-4 h-4" />
+      {t.hero.buttons.projects}
+    </a>
+
+    <!-- GitHub -->
+    <a
+      href="https://github.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl
+             bg-surface border border-border text-muted font-mono font-bold text-xs tracking-wider uppercase
+             transition-all duration-200 hover:text-text hover:border-accent/30 hover:bg-hover hover:-translate-y-0.5 active:translate-y-0"
+    >
+      <Icon name="simple-icons:github" class="w-4 h-4" />
+      {t.hero.buttons.github}
+    </a>
+
+    <!-- LinkedIn -->
+    <a
+      href="https://linkedin.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl
+             bg-surface border border-border text-muted font-mono font-bold text-xs tracking-wider uppercase
+             transition-all duration-200 hover:text-text hover:border-accent/30 hover:bg-hover hover:-translate-y-0.5 active:translate-y-0"
+    >
+      <Icon name="simple-icons:linkedin" class="w-4 h-4" />
+      {t.hero.buttons.linkedin}
+    </a>
+  </div>
+
+  <!-- Bio card (Sidebar styled) -->
+  <div
+    class="rounded-2xl bg-surface border border-border p-6 sm:p-8 shadow-lg shadow-black/10 sidebar-glow"
+  >
+    <p class="text-base sm:text-lg text-muted leading-relaxed">
+      {t.hero.bio}
+    </p>
+  </div>
+
+  <!-- Info Cards Grid (Sidebar styled) -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- Education Card -->
+    <div
+      class="flex items-start gap-4 rounded-2xl bg-surface border border-border p-6 shadow-lg shadow-black/10 sidebar-glow"
+    >
+      <div class="p-3 rounded-xl bg-accent-glow border border-accent/15 text-accent shrink-0">
+        <Icon name="lucide:graduation-cap" class="w-6 h-6" />
+      </div>
+      <div>
+        <h3 class="text-sm font-mono text-dim uppercase tracking-wider mb-1">{eduTitle}</h3>
+        <p class="text-base font-semibold text-text leading-snug">{eduText}</p>
+      </div>
+    </div>
+
+    <!-- Location Card -->
+    <div
+      class="flex items-start gap-4 rounded-2xl bg-surface border border-border p-6 shadow-lg shadow-black/10 sidebar-glow"
+    >
+      <div class="p-3 rounded-xl bg-accent-glow border border-accent/15 text-accent shrink-0">
+        <Icon name="lucide:map-pin" class="w-6 h-6" />
+      </div>
+      <div>
+        <h3 class="text-sm font-mono text-dim uppercase tracking-wider mb-1">{locTitle}</h3>
+        <p class="text-base font-semibold text-text leading-snug">{locText}</p>
+      </div>
+    </div>
+  </div>
 </section>

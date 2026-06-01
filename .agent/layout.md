@@ -28,13 +28,13 @@ El Layout es el esqueleto de la aplicación. Recibe `lang` y `t` como props.
       <!-- Columna de contenido principal -->
       <main class="flex-1 flex flex-col h-screen min-w-0">
         <!-- Breadcrumb / Header (Limpio, sin fondo ni bordes, alineado con el top del sidebar card) -->
-        <header class="shrink-0 flex justify-between px-8 pt-8 pb-5 ...">
+        <header class="shrink-0 flex justify-between px-8 pt-8 pb-5 md:px-16 lg:pt-8 lg:pb-6...">
           <span id="breadcrumb-text">PORTFOLIO OS - SOBRE MÍ</span>
           <span>V1.0.0</span>
         </header>
-        <!-- Contenedor con scroll interno para evitar solapamientos -->
+        <!-- Contenedor con scroll interno justificado a la izquierda -->
         <div class="flex-1 overflow-y-auto w-full px-8 md:px-16 pb-12">
-          <div class="mx-auto max-w-3xl">
+          <div class="max-w-4xl">
             <slot />
           </div>
         </div>
