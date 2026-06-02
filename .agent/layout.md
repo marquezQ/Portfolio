@@ -50,7 +50,8 @@ El Layout es el esqueleto de la aplicación. Recibe `lang` y `t` como props.
 
 ## Breadcrumbs Dinámicos y Scroll Limpio
 El breadcrumb actúa como un indicador transparente flotante con el formato `PORTFOLIO OS - [PATH]` en el extremo izquierdo y `V1.0.0` en el extremo derecho. Está alineado verticalmente con el inicio del sidebar card (`pt-8`).
-Para evitar que el texto de las secciones se solape con el texto del breadcrumb al scrollear (debido a la ausencia de fondo/difuminado en la cabecera), el scroll de la página se realiza de manera interna en el contenedor de las secciones (`overflow-y-auto`). De esta forma, el contenido desaparece físicamente al alcanzar el límite inferior de la cabecera, logrando un scroll sumamente limpio y profesional.
+3.  **Scroll Limpio:** `overflow-y-auto` se aplica exclusivamente al contenedor del contenido (que envuelve tanto al `<header>` como al `<slot/>`). De esta manera, el scroll es interno y no afecta al layout principal (como el Sidebar).
+4.  **Scroll Spy Inteligente:** En lugar de usar `threshold: 0.4` (que falla si una sección es más alta que la pantalla), utilizamos `rootMargin: '-30% 0px -60% 0px'`. Esto crea un "gatillo" o zona virtual en el tercio superior del viewport: cuando cualquier sección cruza esta línea invisible, el Navbar y el Sidebar se actualizan automáticamente sin importar el alto de la sección.
 
 ## Sidebar flotante (`src/components/Sidebar.astro`)
 

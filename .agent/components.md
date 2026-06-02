@@ -73,3 +73,13 @@ Presenta el perfil profesional del usuario. Contiene:
 - Grid de badges tecnológicas interactivas generadas a partir de `t.hero.stack`.
 - Botón principal de descarga de CV con icono Lucide.
 - Enlaces de redes sociales (GitHub y LinkedIn) representados por sus logos correspondientes de Simple Icons.
+
+### Skills (`src/components/sections/Skills.astro`)
+Diseñada visualmente como monitores de entorno de sistema (System Monitor) estilo Linux, para las habilidades técnicas:
+- **Estructura Dinámica**: Agrupa las categorías del JSON (Frontend, Backend, Bases de Datos, DevOps) en 3 entornos principales (`frontend_env`, `backend_env`, `devops_env`).
+- **Arquitectura UI (System Monitor)**: Utiliza un "header sutil" con iconos de infraestructura (`lucide:layout`, `server`, `cloud`) y un indicador de estado animado (Online). El cuerpo emula una terminal con un prompt claro (`ls -la ./FRONTEND`).
+- **Mapeo Inteligente de Íconos**: Incluye un diccionario estático `iconMap` que toma los strings del JSON ("React", "Docker") y los asocia automáticamente con sus logos de la base de datos de `simple-icons` a través de Astro Icon, renderizando SVGs puros en tiempo de compilación.
+- **Responsive Grid Mágico**: Implementa un patrón responsivo avanzado para maximizar el uso de espacio:
+  - Teléfonos (`<sm`): Tarjetas 100% ancho, lista en 1 columna (`grid-cols-1`).
+  - Tabletas/Laptops (`sm` a `lg`): Tarjetas 100% ancho (apiladas verticalmente), pero la lista de habilidades se expande a 2 o 3 columnas (`sm:grid-cols-2 md:grid-cols-3`) para aprovechar el enorme espacio horizontal y evitar vacíos.
+  - Desktop Grande (`xl`): Las tarjetas se colocan una al lado de la otra en 3 columnas (`xl:grid-cols-3`). Para evitar que las habilidades internas se aplasten, la lista vuelve inteligentemente a 1 columna (`xl:grid-cols-1`).

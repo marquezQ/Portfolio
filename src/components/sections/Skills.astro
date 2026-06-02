@@ -1,14 +1,106 @@
 ---
+import { Icon } from "astro-icon/components";
+
 interface Props {
   t: Record<string, any>;
 }
 
 const { t } = Astro.props;
+
+// Diccionario manual de iconos para hacer match con los nombres del JSON
+const iconMap: Record<string, string> = {
+  "React": "simple-icons:react",
+  "TypeScript": "simple-icons:typescript",
+  "Tailwind CSS": "simple-icons:tailwindcss",
+  "shadcn/ui": "simple-icons:shadcnui",
+  "React Query": "simple-icons:reactquery",
+  "Bootstrap": "simple-icons:bootstrap",
+  "Material UI": "simple-icons:mui",
+  "Vite": "simple-icons:vite",
+  "NestJS": "simple-icons:nestjs",
+  "Node.js": "simple-icons:nodedotjs",
+  "Laravel": "simple-icons:laravel",
+  "Java": "simple-icons:openjdk",
+  "PostgreSQL": "simple-icons:postgresql",
+  "MySQL": "simple-icons:mysql",
+  "AWS EC2": "simple-icons:amazonaws",
+  "Docker": "simple-icons:docker",
+  "GitHub Actions": "simple-icons:githubactions",
+  "Nginx": "simple-icons:nginx",
+  "Cloudflare": "simple-icons:cloudflare",
+  "Linux": "simple-icons:linux"
+};
+
+// Agrupamos el JSON en 3 columnas principales según la petición: Frontend, Backend (+DB), DevOps
+const frontend = t.skills.categories.find((c: any) => c.name.toLowerCase().includes('front')) || t.skills.categories[0];
+const backendBase = t.skills.categories.find((c: any) => c.name.toLowerCase().includes('back')) || t.skills.categories[1];
+const databases = t.skills.categories.find((c: any) => c.name.toLowerCase().includes('databas') || c.name.toLowerCase().includes('datos')) || t.skills.categories[2];
+const devops = t.skills.categories.find((c: any) => c.name.toLowerCase().includes('devops')) || t.skills.categories[3];
+
+// Unimos Backend y Databases en un solo grupo para mostrar 3 terminales exactas
+const backend = {
+  name: "Backend_&_DB",
+  items: [...(backendBase?.items || []), ...(databases?.items || [])]
+};
+
+const terminalPanels = [
+  { id: 'frontend', title: 'frontend', data: frontend, icon: 'lucide:layout' },
+  { id: 'backend', title: 'backend', data: backend, icon: 'lucide:server' },
+  { id: 'devops', title: 'devops', data: devops, icon: 'lucide:cloud' }
+];
 ---
 
-<section id="skills" class="min-h-[70vh] py-12 md:py-20 flex flex-col justify-center">
-  <h2 class="text-4xl font-bold text-text tracking-tight">{t.skills.title}</h2>
-  <p class="mt-6 text-base text-muted leading-relaxed">
-    Section placeholder — skills
-  </p>
+<section id="skills" class="min-h-[80vh] py-12 md:py-20 flex flex-col justify-center gap-10">
+  
+  <div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-text tracking-tight mb-3">
+      {t.skills.title}
+    </h2>
+  </div>
+
+  <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+    {terminalPanels.map((panel) => (
+      <div class="flex flex-col rounded-xl overflow-hidden bg-surface border border-border/80 shadow-lg sidebar-glow group">
+        
+        <!-- Subtle System Header -->
+        <div class="flex items-center justify-between px-6 py-3 border-b border-border/40 bg-bg/30">
+          <div class="flex items-center gap-2">
+            <Icon name={panel.icon} class="w-4 h-4 text-muted" />
+            <span class="text-[0.7rem] font-mono text-muted uppercase tracking-wider">{panel.id}_env</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[0.6rem] font-mono text-dim uppercase tracking-wider">Online</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--c-accent)]"></span>
+          </div>
+        </div>
+
+        <!-- Terminal Body -->
+        <div class="p-6 sm:p-8 font-mono flex-1 flex flex-col">
+          <!-- Command line -->
+          <div class="flex items-center text-base md:text-lg mb-8 opacity-90 whitespace-nowrap">
+            <span class="text-accent font-bold">~</span>
+            <span class="text-text mx-2">❯</span>
+            <span class="text-muted-custom font-medium">ls -la ./<span class="text-text font-bold uppercase tracking-wider">{panel.title}</span></span>
+            <span class="w-2.5 h-5 bg-accent/70 ml-2 animate-pulse shrink-0"></span>
+          </div>
+
+          <!-- Technologies Responsive Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-1 gap-5">
+            {panel.data.items.map((tech: string) => {
+              const iconName = iconMap[tech] || 'lucide:box';
+              return (
+                <div class="flex items-center gap-4 cursor-default">
+                  <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-bg border border-border/50 text-accent transition-colors duration-300 group-hover:border-accent/50 group-hover:bg-surface shrink-0">
+                    <Icon name={iconName} class="w-6 h-6" />
+                  </div>
+                  <span class="text-base text-text font-bold tracking-wide truncate">{tech}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+      </div>
+    ))}
+  </div>
 </section>

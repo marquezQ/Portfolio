@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 
 interface Props {
   lang: string;
@@ -9,20 +9,27 @@ interface Props {
 const { lang, t } = Astro.props;
 
 // Localized strings for details cards
-const isEs = lang === 'es';
-const eduTitle = isEs ? 'Educación' : 'Education';
-const eduText = isEs ? 'Universidad Mayor de San Simón' : 'Greater University of San Simón';
-const locTitle = isEs ? 'Ubicación' : 'Location';
-const locText = isEs ? 'Cochabamba, Bolivia' : 'Cochabamba, Bolivia';
+const isEs = lang === "es";
+const eduTitle = isEs ? "Educación" : "Education";
+const eduText = isEs
+  ? "Universidad Mayor de San Simón"
+  : "Greater University of San Simón";
+const locTitle = isEs ? "Ubicación" : "Location";
+const locText = isEs ? "Cochabamba, Bolivia" : "Cochabamba, Bolivia";
 ---
 
-<section id="about" class="min-h-[80vh] py-12 md:py-20 flex flex-col justify-center gap-8">
+<section
+  id="about"
+  class="min-h-[80vh] py-3 md:py-6 flex flex-col justify-center gap-8"
+>
   <!-- Pill role indicator -->
   <div
     class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-accent-glow border border-accent/20 w-fit"
   >
     <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-    <span class="text-xs font-mono text-accent uppercase tracking-wider font-semibold">
+    <span
+      class="text-xs font-mono text-accent uppercase tracking-wider font-semibold"
+    >
       {t.hero.title}
     </span>
   </div>
@@ -101,11 +108,15 @@ const locText = isEs ? 'Cochabamba, Bolivia' : 'Cochabamba, Bolivia';
     <div
       class="flex items-start gap-4 rounded-2xl bg-surface border border-border p-6 shadow-lg shadow-black/10 sidebar-glow"
     >
-      <div class="p-3 rounded-xl bg-accent-glow border border-accent/15 text-accent shrink-0">
+      <div
+        class="p-3 rounded-xl bg-accent-glow border border-accent/15 text-accent shrink-0"
+      >
         <Icon name="lucide:graduation-cap" class="w-6 h-6" />
       </div>
       <div>
-        <h3 class="text-sm font-mono text-dim uppercase tracking-wider mb-1">{eduTitle}</h3>
+        <h3 class="text-sm font-mono text-dim uppercase tracking-wider mb-1">
+          {eduTitle}
+        </h3>
         <p class="text-base font-semibold text-text leading-snug">{eduText}</p>
       </div>
     </div>
@@ -114,11 +125,15 @@ const locText = isEs ? 'Cochabamba, Bolivia' : 'Cochabamba, Bolivia';
     <div
       class="flex items-start gap-4 rounded-2xl bg-surface border border-border p-6 shadow-lg shadow-black/10 sidebar-glow"
     >
-      <div class="p-3 rounded-xl bg-accent-glow border border-accent/15 text-accent shrink-0">
+      <div
+        class="p-3 rounded-xl bg-accent-glow border border-accent/15 text-accent shrink-0"
+      >
         <Icon name="lucide:map-pin" class="w-6 h-6" />
       </div>
       <div>
-        <h3 class="text-sm font-mono text-dim uppercase tracking-wider mb-1">{locTitle}</h3>
+        <h3 class="text-sm font-mono text-dim uppercase tracking-wider mb-1">
+          {locTitle}
+        </h3>
         <p class="text-base font-semibold text-text leading-snug">{locText}</p>
       </div>
     </div>
