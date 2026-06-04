@@ -42,6 +42,15 @@ los compone en orden:
 | `Experience`   | `src/components/sections/Experience.astro`   | `t`   | `experience` |
 | `Contact`      | `src/components/sections/Contact.astro`      | `t`   | `contact`  |
 
+### UI Internos (Subcomponentes)
+
+Estos componentes viven en `src/components/sections/` pero no son secciones raíz completas. Son orquestados por sus padres:
+
+| Componente              | Padre (`Orquestador`) | Propósito |
+|-------------------------|------------------------|-----------|
+| `ProjectCard.astro`     | `Projects.astro`       | Componente visual puro que renderiza los detalles de un proyecto, sus tecnologías y el botón para ver la galería. |
+| `ProjectGalleryModal.astro` | `Projects.astro`       | `<dialog>` nativo y script de Vanilla JS que maneja el carrusel y las View Transitions. |
+
 ## Contrato de props
 
 Todos los componentes de sección reciben un único prop `t`:
@@ -83,3 +92,18 @@ Diseñada visualmente como monitores de entorno de sistema (System Monitor) esti
   - Teléfonos (`<sm`): Tarjetas 100% ancho, lista en 1 columna (`grid-cols-1`).
   - Tabletas/Laptops (`sm` a `lg`): Tarjetas 100% ancho (apiladas verticalmente), pero la lista de habilidades se expande a 2 o 3 columnas (`sm:grid-cols-2 md:grid-cols-3`) para aprovechar el enorme espacio horizontal y evitar vacíos.
   - Desktop Grande (`xl`): Las tarjetas se colocan una al lado de la otra en 3 columnas (`xl:grid-cols-3`). Para evitar que las habilidades internas se aplasten, la lista vuelve inteligentemente a 1 columna (`xl:grid-cols-1`).
+
+### Projects (`src/components/sections/Projects.astro`)
+Esta sección está construida con una arquitectura de "Smart Component" (Orquestador) de alto rendimiento, delegando la visualización a sus hijos (`ProjectCard` y `ProjectGalleryModal`). Las innovaciones técnicas incluyen:
+
+- **Optimización de Imágenes en Build Time (`astro:assets`)**: 
+  - `Projects.astro` utiliza `import.meta.glob` para capturar dinámicamente todas las imágenes `.png` dentro de las carpetas locales (`src/assets/projects/`).
+  - Estas rutas se pasan por la función interna `getImage({ format: 'webp' })` de Astro durante la fase de *build*, forzando la conversión de formatos pesados a WebP ultraligero de forma automatizada.
+  - El resultado es un diccionario (`projectImagesMap`) inyectado al cliente, permitiendo un rendimiento 100/100 en Lighthouse sin perder el control desde Vanilla JS.
+- **View Transitions API (Single Page Application)**:
+  - En lugar de navegar a una nueva ruta de Astro para ver detalles, implementa `document.startViewTransition()` directamente en Javascript.
+  - Esto produce una animación mágica donde la imagen de portada (`ProjectCard`) se "desprende" y viaja por la pantalla expandiéndose hasta convertirse en la imagen gigante del modal.
+  - *Manejo de Estado Estricto*: Para prevenir errores de duplicación (`InvalidStateError`), el `view-transition-name` se manipula dinámicamente: se aplica *justo antes* de saltar y se retira garantizadamente atrapando la promesa `transition.finished.then()`.
+- **Carrusel y Modal Nativo (`<dialog>`)**:
+  - `ProjectGalleryModal` usa un modal HTML nativo totalmente responsivo y libre de dependencias pesadas (cero React o Swiper).
+  - Incluye renderizado dinámico de miniaturas (thumbnails) y efectos de opacidad CSS fluidos (`fade in/out`) al iterar por las capturas.
