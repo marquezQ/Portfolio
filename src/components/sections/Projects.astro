@@ -1,14 +1,45 @@
 ---
+import { getImage } from 'astro:assets';
+import ProjectCard from './ProjectCard.astro';
+import ProjectGalleryModal from './ProjectGalleryModal.astro';
+
 interface Props {
-  t: Record<string, any>;
+  t: any;
 }
 
 const { t } = Astro.props;
+
+// Optimización Dinámica de Imágenes en tiempo de Build (Genera WebP automáticamente)
+const allImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/projects/*/*.{jpeg,jpg,png,gif}', { eager: true });
+
+const projectImagesMap: Record<string, string[]> = {
+  fastcashier: [],
+  carpinpro: []
+};
+
+// Iteramos y optimizamos todas las imágenes usando Astro Image Optimization
+for (const path in allImages) {
+  const file = allImages[path];
+  const optImg = await getImage({ src: file.default, format: 'webp' });
+  
+  // Asignamos basándonos en la ruta de la carpeta
+  if (path.includes('FastCashier')) projectImagesMap.fastcashier.push(optImg.src);
+  if (path.includes('CarpinPro')) projectImagesMap.carpinpro.push(optImg.src);
+}
 ---
 
-<section id="projects" class="min-h-[70vh] py-12 md:py-20 flex flex-col justify-center">
-  <h2 class="text-4xl font-bold text-text tracking-tight">{t.projects.title}</h2>
-  <p class="mt-6 text-base text-muted leading-relaxed">
-    Section placeholder — projects
-  </p>
+<section id="projects" class="py-12 md:py-20 flex flex-col gap-10">
+  <div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-text tracking-tight mb-3">
+      {t.projects?.title || "Projects"}
+    </h2>
+  </div>
+
+  <div class="flex flex-col gap-12 @container">
+    {t.projects?.items.map((project: any) => (
+      <ProjectCard project={project} projectImagesMap={projectImagesMap} />
+    ))}
+  </div>
+
+  <ProjectGalleryModal projectImagesMap={projectImagesMap} />
 </section>

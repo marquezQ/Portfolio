@@ -20,7 +20,7 @@
         "id": "fastcashier",
         "name": "FastCashier",
         "subtitle": "Sistema de Punto de Venta (POS)",
-        "description": "Sistema POS moderno para negocios de comida rápida con gestión de ventas, caja, flujo de cocina y comunicación en tiempo real entre estaciones.",
+        "description": "Sistema POS full-stack para negocios de comida rápida que centraliza la gestión de ventas, pedidos y operaciones de caja. Incluye aperturas y cierres de caja, seguimiento financiero de las ventas y comunicación en tiempo real entre caja y cocina mediante WebSockets, permitiendo una operación más eficiente, una mejor coordinación entre áreas y una reducción significativa de errores en el procesamiento de pedidos.",
         "features": [
           "Autenticación JWT y control de acceso por roles",
           "Comunicación en tiempo real mediante WebSockets",
@@ -51,7 +51,7 @@
         "id": "carpinpro",
         "name": "CarpinPro",
         "subtitle": "Plataforma de Servicios para Carpinteros",
-        "description": "Plataforma desarrollada como proyecto de grado que conecta clientes con carpinteros artesanales mediante perfiles verificados, catálogos de trabajos y mapas interactivos. El objetivo era dar visibilidad digital al carpintero sin depender de redes sociales.",
+        "description": "Aplicación web basada en reseñas y recomendaciones para la contratación de carpinteros, permitiendo tener sus portfolios ordenados y verificados en un solo lugar para conectar fácilmente con clientes.",
         "note": "Backend en Laravel por requerimientos del proyecto académico. Stack actual: NestJS.",
         "features": [
           "Control de acceso por roles",

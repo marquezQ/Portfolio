@@ -20,7 +20,7 @@
         "id": "fastcashier",
         "name": "FastCashier",
         "subtitle": "Point of Sale System (POS)",
-        "description": "Modern POS system for fast food businesses with sales management, cash register, kitchen workflow and real-time communication between stations.",
+        "description": "Full-stack POS system for fast food businesses that centralizes sales, orders, and cash operations. Includes cash register opening and closing, financial tracking of sales, and real-time communication between cashiers and kitchen via WebSockets, allowing for a more efficient operation, better coordination, and a significant reduction in order processing errors.",
         "features": [
           "JWT authentication and role-based access control",
           "Real-time communication via WebSockets",
@@ -51,7 +51,7 @@
         "id": "carpinpro",
         "name": "CarpinPro",
         "subtitle": "Carpentry Services Platform",
-        "description": "Platform developed as a degree project that connects clients with local carpenters through verified profiles, work catalogs and interactive maps. The goal was to give carpenters a digital presence without relying on social media.",
+        "description": "Web application based on reviews and recommendations for hiring carpenters, keeping their portfolios organized and verified in one place to easily connect with clients.",
         "note": "Backend built with Laravel due to academic project requirements. Current stack: NestJS.",
         "features": [
           "Role-based access control",

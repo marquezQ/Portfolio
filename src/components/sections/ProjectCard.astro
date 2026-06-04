@@ -1,0 +1,119 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  project: any;
+  projectImagesMap: Record<string, string[]>;
+}
+
+const { project, projectImagesMap } = Astro.props;
+
+// Diccionario de iconos
+const iconMap: Record<string, string> = {
+  "React": "simple-icons:react",
+  "TypeScript": "simple-icons:typescript",
+  "Laravel": "simple-icons:laravel",
+  "NestJS": "simple-icons:nestjs",
+  "PostgreSQL": "simple-icons:postgresql",
+  "Tailwind CSS": "simple-icons:tailwindcss",
+  "AWS": "simple-icons:amazonaws",
+  "Nginx": "simple-icons:nginx",
+  "shadcn/ui": "simple-icons:shadcnui",
+  "React Query": "simple-icons:reactquery",
+  "Leaflet": "simple-icons:leaflet",
+  // Fallback
+  "WebSockets": "lucide:network",
+  "TypeORM": "lucide:database"
+};
+
+const getIcon = (tech: string) => iconMap[tech] || 'lucide:code';
+---
+
+<div class="flex flex-col @3xl:flex-row gap-8 bg-surface border border-border/80 rounded-2xl p-6 @3xl:p-8 shadow-lg sidebar-glow group">
+  
+  <!-- Contenido (Izquierda) -->
+  <div class="flex-1 flex flex-col justify-center">
+    <div class="mb-4">
+      <h3 class="text-2xl font-bold text-text mb-1">{project.name}</h3>
+      <p class="text-accent font-mono text-xs tracking-wider uppercase">{project.subtitle}</p>
+    </div>
+    
+    <div class="prose prose-invert prose-p:text-muted mb-4 max-w-none">
+      <p class="text-sm md:text-base leading-relaxed text-text/90 m-0">{project.description}</p>
+      {project.note && (
+         <p class="text-xs border-l-2 border-accent/50 pl-3 italic text-dim-custom mt-3 m-0">{project.note}</p>
+      )}
+    </div>
+
+    <!-- Funcionalidades Clave (Compacto) -->
+    <div class="mb-5">
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+        {project.features.map((feat: string) => (
+          <div class="flex items-center gap-1.5 text-xs text-text/80">
+            <Icon name="lucide:check" class="w-3.5 h-3.5 text-accent shrink-0" />
+            <span>{feat}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Botones de Acción -->
+    <div class="flex flex-wrap gap-3 mt-auto pt-4">
+       <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent text-bg font-bold font-mono text-[0.65rem] uppercase tracking-wider hover:bg-accent-bright transition-all shadow-md shadow-accent/10 hover:-translate-y-0.5 active:translate-y-0">
+         <Icon name="lucide:external-link" class="w-3.5 h-3.5 stroke-[2.5]" />
+         {project.links.demo}
+       </a>
+       <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-bg border border-border text-text font-bold font-mono text-[0.65rem] uppercase tracking-wider hover:border-accent/40 hover:bg-hover transition-all hover:-translate-y-0.5 active:translate-y-0">
+         <Icon name="simple-icons:github" class="w-3.5 h-3.5" />
+         {project.links.github}
+       </a>
+    </div>
+  </div>
+
+  <!-- Imagen y Stack (Derecha) -->
+  <div class="w-full @3xl:w-[320px] @4xl:w-87.5 @5xl:w-112.5 shrink-0 flex flex-col gap-5">
+    <!-- Contenedor Estilo OS Window -->
+    <div class="relative w-full aspect-4/3 rounded-xl overflow-hidden border border-border/60 bg-bg shadow-2xl group-hover:border-accent/30 transition-all duration-500">
+      <!-- Header Window System Monitor Style -->
+      <div class="absolute top-0 left-0 right-0 h-9 bg-surface/80 backdrop-blur-md border-b border-border/50 flex items-center justify-between px-4 z-10">
+        <div class="flex items-center gap-2">
+          <Icon name="lucide:image" class="w-3.5 h-3.5 text-muted" />
+          <span class="text-[0.65rem] font-mono text-muted uppercase tracking-wider">sys.preview</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-[0.6rem] font-mono text-dim uppercase tracking-wider">Active</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--c-accent)] animate-pulse"></span>
+        </div>
+      </div>
+      
+      <!-- Imagen Optimizada (Cover) -->
+      <img 
+        src={projectImagesMap[project.id]?.[0] || `https://placehold.co/1200x900/1e293b/22d3ee?text=${project.name}+Preview`} 
+        alt={project.name}
+        class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500 pt-8 project-cover"
+        id={`cover-${project.id}`}
+      />
+
+      <!-- Botón superpuesto para Galería -->
+      <button 
+        class="absolute inset-0 z-20 flex items-center justify-center bg-black/0 hover:bg-black/50 backdrop-blur-none hover:backdrop-blur-sm transition-all duration-300 group/btn"
+        data-gallery={project.id}
+      >
+        <div class="translate-y-4 opacity-0 group-hover/btn:translate-y-0 group-hover/btn:opacity-100 transition-all duration-300 flex items-center gap-2 px-6 py-3 rounded-full bg-surface/90 border border-border text-text text-sm font-mono font-bold shadow-2xl hover:border-accent/50 hover:text-accent">
+          <Icon name="lucide:images" class="w-4 h-4" />
+          Ver Galería
+        </div>
+      </button>
+    </div>
+
+    <!-- Tecnologías (Grid Simétrico) -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 @3xl:grid-cols-2 @5xl:grid-cols-3 gap-2 w-full mt-2">
+      {project.technologies.map((tech: string) => (
+        <span class="inline-flex items-center justify-start gap-1.5 px-2.5 py-1.5 rounded-md bg-bg border border-border/50 text-[0.65rem] font-mono text-muted hover:text-text hover:border-accent/40 transition-colors w-full overflow-hidden">
+          <Icon name={getIcon(tech)} class="w-3.5 h-3.5 shrink-0" />
+          <span class="truncate">{tech}</span>
+        </span>
+      ))}
+    </div>
+  </div>
+</div>
