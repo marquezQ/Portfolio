@@ -3,7 +3,14 @@
     "name": "Pedro Marquez Quiroz",
     "title": "Full-Stack Developer · React · NestJS · PostgreSQL",
     "bio": "Ingeniero de Sistemas especializado en desarrollo full-stack con React, NestJS y PostgreSQL. Construyo aplicaciones con autenticación, roles, comunicación en tiempo real y arquitecturas backend escalables. Actualmente integro agentes de IA en el flujo de desarrollo para acelerar la ejecución, manteniendo el foco en las decisiones de arquitectura y la calidad del resultado. Avanzo continuamente en infraestructura cloud y flujos CI/CD, áreas en las que ya tengo experiencia práctica y sigo profundizando.",
-    "stack": ["React", "TypeScript", "NestJS", "PostgreSQL", "AWS", "Docker"],
+    "stack": [
+      "React",
+      "TypeScript",
+      "NestJS",
+      "PostgreSQL",
+      "AWS",
+      "Docker"
+    ],
     "buttons": {
       "projects": "Ver Proyectos",
       "cv": "Descargar CV",
@@ -12,7 +19,6 @@
       "contact": "Contáctame"
     }
   },
-
   "projects": {
     "title": "Proyectos Destacados",
     "items": [
@@ -44,7 +50,9 @@
         ],
         "links": {
           "demo": "Demo en Vivo",
-          "github": "Repositorio GitHub"
+          "demoUrl": "https://cashier.servicapp.me/",
+          "github": "Repositorio GitHub",
+          "githubUrl": "https://github.com/marquezQ/FastCashier"
         }
       },
       {
@@ -70,48 +78,72 @@
         ],
         "links": {
           "demo": "Demo en Vivo",
-          "github": "Repositorio GitHub"
+          "demoUrl": "https://app.servicapp.me/",
+          "github": "Repositorio GitHub",
+          "githubUrl": "https://github.com/marquezQ/CarpinPro"
         }
       }
     ]
   },
-
   "skills": {
     "title": "Habilidades Técnicas",
     "categories": [
       {
         "name": "Frontend",
-        "items": ["React", "TypeScript", "Tailwind CSS", "shadcn/ui", "React Query", "Bootstrap", "Material UI", "Vite"]
+        "items": [
+          "React",
+          "TypeScript",
+          "Tailwind CSS",
+          "shadcn/ui",
+          "React Query",
+          "Bootstrap",
+          "Material UI",
+          "Vite"
+        ]
       },
       {
         "name": "Backend",
-        "items": ["NestJS", "Node.js", "Laravel", "Java"]
+        "items": [
+          "NestJS",
+          "Node.js",
+          "Laravel",
+          "Java"
+        ]
       },
       {
         "name": "Bases de Datos",
-        "items": ["PostgreSQL", "MySQL"]
+        "items": [
+          "PostgreSQL",
+          "MySQL"
+        ]
       },
       {
         "name": "DevOps y Cloud",
-        "items": ["AWS EC2", "Docker", "GitHub Actions", "Nginx", "Cloudflare", "Linux"]
+        "items": [
+          "AWS EC2",
+          "Docker",
+          "GitHub Actions",
+          "Nginx",
+          "Cloudflare",
+          "Linux"
+        ]
       }
     ]
   },
-
   "experience": {
     "title": "Experiencia",
     "items": [
       {
         "id": "admin-lab",
         "role": "Administrador de Laboratorio de Informática",
-        "company": "UMSS",
+        "company": "Departamento de Informática y Sistemas UMSS",
         "period": "Ene 2025 – Ene 2026",
         "description": "Gestioné la infraestructura tecnológica del laboratorio, coordiné auxiliares, brindé soporte técnico y dicté cursos intensivos de mantenimiento de computadoras."
       },
       {
         "id": "auxiliar-lab",
         "role": "Auxiliar de Laboratorio de Informática",
-        "company": "UMSS",
+        "company": "Departamento de Informática y Sistemas UMSS",
         "period": "Jun 2024 – Dic 2024",
         "description": "Apoyo en soporte técnico, mantenimiento de equipos y asistencia a usuarios del laboratorio."
       },
@@ -131,18 +163,19 @@
       }
     ]
   },
-
   "contact": {
     "title": "Conectemos",
     "description": "Estoy abierto a oportunidades en desarrollo full-stack, backend y aplicaciones cloud.",
     "location": "Cochabamba, Bolivia",
     "links": {
       "email": "Email",
+      "emailUrl": "mailto:tu_correo@gmail.com",
       "github": "GitHub",
-      "linkedin": "LinkedIn"
+      "githubUrl": "https://github.com/marquezQ",
+      "linkedin": "LinkedIn",
+      "linkedinUrl": "https://www.linkedin.com/in/pedro-marquez-quiroz/"
     }
   },
-
   "nav": {
     "about": "Sobre mí",
     "projects": "Proyectos",
@@ -150,6 +183,5 @@
     "experience": "Experiencia",
     "contact": "Contacto"
   },
-
   "langSwitcher": "English"
 }

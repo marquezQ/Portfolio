@@ -104,6 +104,12 @@ Esta sección está construida con una arquitectura de "Smart Component" (Orques
   - En lugar de navegar a una nueva ruta de Astro para ver detalles, implementa `document.startViewTransition()` directamente en Javascript.
   - Esto produce una animación mágica donde la imagen de portada (`ProjectCard`) se "desprende" y viaja por la pantalla expandiéndose hasta convertirse en la imagen gigante del modal.
   - *Manejo de Estado Estricto*: Para prevenir errores de duplicación (`InvalidStateError`), el `view-transition-name` se manipula dinámicamente: se aplica *justo antes* de saltar y se retira garantizadamente atrapando la promesa `transition.finished.then()`.
-- **Carrusel y Modal Nativo (`<dialog>`)**:
   - `ProjectGalleryModal` usa un modal HTML nativo totalmente responsivo y libre de dependencias pesadas (cero React o Swiper).
   - Incluye renderizado dinámico de miniaturas (thumbnails) y efectos de opacidad CSS fluidos (`fade in/out`) al iterar por las capturas.
+
+### Experience (`src/components/sections/Experience.astro`)
+Esta sección se desvía del diseño tradicional de "tarjetas sueltas" para resolver un problema de narrativa del usuario (mezcla de trabajos de soporte técnico de laboratorio con desarrollo de software). Para cohesionarlo bajo el mismo tema técnico:
+
+- **Diseño de Historial de Commits (Git Log / System Trace)**: Se presenta como una línea de tiempo vertical donde cada trabajo es un nodo o punto de trazado en el sistema.
+- **Metadatos Técnicos**: Las fechas no son simples textos, sino que están formateadas como `timestamps` del sistema `[Ene 2025 – Ene 2026]` usando tipografía `mono` para reforzar la estética OS.
+- **Iconografía Dinámica**: Contiene un `iconMap` interno que asigna iconos específicos basados en el ID del trabajo (ej. `lucide:server` para administrador de laboratorio, `lucide:code` para desarrollo frontend), unificando roles dispares bajo una misma familia visual.

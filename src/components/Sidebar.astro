@@ -1,5 +1,7 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import avatarImg from "../assets/avatar/avatarSinFondo.png";
 
 interface Props {
   lang: string;
@@ -7,14 +9,14 @@ interface Props {
 }
 
 const { lang, t } = Astro.props;
-const otherLang = lang === 'es' ? 'en' : 'es';
+const otherLang = lang === "es" ? "en" : "es";
 
 const navItems = [
-  { key: 'about',      icon: 'lucide:user' },
-  { key: 'projects',   icon: 'lucide:code-2' },
-  { key: 'skills',     icon: 'lucide:monitor' },
-  { key: 'experience', icon: 'lucide:clock-3' },
-  { key: 'contact',    icon: 'lucide:mail' },
+  { key: "about", icon: "lucide:user" },
+  { key: "projects", icon: "lucide:code-2" },
+  { key: "skills", icon: "lucide:monitor" },
+  { key: "experience", icon: "lucide:clock-3" },
+  { key: "contact", icon: "lucide:mail" },
 ] as const;
 ---
 
@@ -25,15 +27,19 @@ const navItems = [
          shadow-lg shadow-black/20 sidebar-glow"
 >
   <!-- ─── Profile ─── -->
-  <div class="flex flex-col items-center gap-3 px-6 pt-8 pb-5">
-    <img
-      src="/avatar.jpg"
-      alt={t.hero.name}
-      class="h-20 w-20 rounded-2xl object-cover ring-2 ring-accent/30"
-    />
+  <div class="flex flex-col items-center gap-4 px-6 pt-8 pb-5">
+    <div
+      class="relative p-1 rounded-2xl bg-gradient-to-b from-accent/20 to-transparent"
+    >
+      <Image
+        src={avatarImg}
+        alt={t.hero.name}
+        class="h-28 w-28 rounded-xl object-cover object-top ring-1 ring-border/50 bg-bg shadow-lg"
+      />
+    </div>
     <div class="text-center">
       <p class="text-base font-bold text-text leading-tight">
-        {t.hero.name.split(' ').slice(0, 2).join(' ')}
+        {t.hero.name.split(" ").slice(0, 2).join(" ")}
       </p>
       <p class="section-label mt-1.5 text-[0.7rem] tracking-[0.15em] text-dim">
         Full-Stack Engineer
@@ -76,75 +82,82 @@ const navItems = [
 
   <!-- ─── Navigation ─── -->
   <nav class="flex-1 flex flex-col gap-1.5 px-3 py-5">
-    {navItems.map(({ key, icon }) => (
-      <a
-        href={`#${key}`}
-        data-section={key}
-        class="nav-link"
-      >
-        <Icon name={icon} class="w-5 h-5 shrink-0 text-muted group-hover:text-accent" />
-        {t.nav[key]}
-      </a>
-    ))}
+    {
+      navItems.map(({ key, icon }) => (
+        <a href={`#${key}`} data-section={key} class="nav-link">
+          <Icon
+            name={icon}
+            class="w-5 h-5 shrink-0 text-muted group-hover:text-accent"
+          />
+          {t.nav[key]}
+        </a>
+      ))
+    }
   </nav>
 </aside>
 
 <script>
   // --- Theme Toggle ---
   function initTheme() {
-    const btn = document.getElementById('theme-toggle');
-    const icon = document.getElementById('theme-icon');
+    const btn = document.getElementById("theme-toggle");
+    const icon = document.getElementById("theme-icon");
     if (!btn || !icon) return;
 
     const update = () => {
-      const isDark = document.documentElement.classList.contains('dark');
-      icon.textContent = isDark ? '🌙' : '☀️';
-      btn.setAttribute('aria-label', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+      const isDark = document.documentElement.classList.contains("dark");
+      icon.textContent = isDark ? "🌙" : "☀️";
+      btn.setAttribute(
+        "aria-label",
+        isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro",
+      );
     };
 
     update();
 
-    btn.addEventListener('click', () => {
-      const isDark = document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    btn.addEventListener("click", () => {
+      const isDark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
       update();
     });
   }
 
   initTheme();
-  document.addEventListener('astro:after-swap', initTheme);
+  document.addEventListener("astro:after-swap", initTheme);
 
   // --- Scroll Spy & Breadcrumb Update ---
   function initScrollSpy() {
-    const sections = document.querySelectorAll('section[id]');
-    const links = document.querySelectorAll('[data-section]');
-    const breadcrumbText = document.getElementById('breadcrumb-text');
+    const sections = document.querySelectorAll("section[id]");
+    const links = document.querySelectorAll("[data-section]");
+    const breadcrumbText = document.getElementById("breadcrumb-text");
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        links.forEach(link => {
-          const el = link as HTMLElement;
-          const isActive = el.dataset.section === entry.target.id;
-          el.classList.toggle('active', isActive);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          links.forEach((link) => {
+            const el = link as HTMLElement;
+            const isActive = el.dataset.section === entry.target.id;
+            el.classList.toggle("active", isActive);
 
-          if (isActive) {
-            // Get clean translated name of the active section
-            const sectionName = el.innerText || el.textContent || '';
-            if (breadcrumbText) {
-              breadcrumbText.textContent = `PORTFOLIO OS - ${sectionName.trim().toUpperCase()}`;
+            if (isActive) {
+              // Get clean translated name of the active section
+              const sectionName = el.innerText || el.textContent || "";
+              if (breadcrumbText) {
+                breadcrumbText.textContent = `PORTFOLIO OS - ${sectionName.trim().toUpperCase()}`;
+              }
             }
-          }
+          });
         });
-      });
-    }, {
-      threshold: 0,
-      rootMargin: '-30% 0px -60% 0px'
-    });
+      },
+      {
+        threshold: 0,
+        rootMargin: "-30% 0px -60% 0px",
+      },
+    );
 
-    sections.forEach(s => observer.observe(s));
+    sections.forEach((s) => observer.observe(s));
   }
 
   initScrollSpy();
-  document.addEventListener('astro:after-swap', initScrollSpy);
+  document.addEventListener("astro:after-swap", initScrollSpy);
 </script>

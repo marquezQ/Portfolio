@@ -68,7 +68,7 @@ const locText = isEs ? "Cochabamba, Bolivia" : "Cochabamba, Bolivia";
 
     <!-- GitHub -->
     <a
-      href="https://github.com"
+      href={t.contact?.links?.githubUrl || "https://github.com/marquezQ"}
       target="_blank"
       rel="noopener noreferrer"
       class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl
@@ -81,7 +81,7 @@ const locText = isEs ? "Cochabamba, Bolivia" : "Cochabamba, Bolivia";
 
     <!-- LinkedIn -->
     <a
-      href="https://linkedin.com"
+      href={t.contact?.links?.linkedinUrl || "https://www.linkedin.com/in/pedro-marquez-quiroz/"}
       target="_blank"
       rel="noopener noreferrer"
       class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl

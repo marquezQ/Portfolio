@@ -59,11 +59,11 @@ const getIcon = (tech: string) => iconMap[tech] || 'lucide:code';
 
     <!-- Botones de Acción -->
     <div class="flex flex-wrap gap-3 mt-auto pt-4">
-       <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent text-bg font-bold font-mono text-[0.65rem] uppercase tracking-wider hover:bg-accent-bright transition-all shadow-md shadow-accent/10 hover:-translate-y-0.5 active:translate-y-0">
+       <a href={project.links.demoUrl || "#"} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent text-bg font-bold font-mono text-[0.65rem] uppercase tracking-wider hover:bg-accent-bright transition-all shadow-md shadow-accent/10 hover:-translate-y-0.5 active:translate-y-0">
          <Icon name="lucide:external-link" class="w-3.5 h-3.5 stroke-[2.5]" />
          {project.links.demo}
        </a>
-       <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-bg border border-border text-text font-bold font-mono text-[0.65rem] uppercase tracking-wider hover:border-accent/40 hover:bg-hover transition-all hover:-translate-y-0.5 active:translate-y-0">
+       <a href={project.links.githubUrl || "#"} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-bg border border-border text-text font-bold font-mono text-[0.65rem] uppercase tracking-wider hover:border-accent/40 hover:bg-hover transition-all hover:-translate-y-0.5 active:translate-y-0">
          <Icon name="simple-icons:github" class="w-3.5 h-3.5" />
          {project.links.github}
        </a>

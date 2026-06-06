@@ -3,7 +3,14 @@
     "name": "Pedro Marquez Quiroz",
     "title": "Full-Stack Developer · React · NestJS · PostgreSQL",
     "bio": "Systems Engineer specialized in full-stack development with React, NestJS and PostgreSQL. I build applications with authentication, role-based access control, real-time communication and scalable backend architectures. I currently integrate AI agents into my development workflow to speed up execution while keeping focus on architectural decisions and output quality. I continuously advance in cloud infrastructure and CI/CD pipelines — areas where I already have hands-on experience and keep going deeper.",
-    "stack": ["React", "TypeScript", "NestJS", "PostgreSQL", "AWS", "Docker"],
+    "stack": [
+      "React",
+      "TypeScript",
+      "NestJS",
+      "PostgreSQL",
+      "AWS",
+      "Docker"
+    ],
     "buttons": {
       "projects": "View Projects",
       "cv": "Download CV",
@@ -12,7 +19,6 @@
       "contact": "Contact Me"
     }
   },
-
   "projects": {
     "title": "Featured Projects",
     "items": [
@@ -44,7 +50,9 @@
         ],
         "links": {
           "demo": "Live Demo",
-          "github": "GitHub Repository"
+          "demoUrl": "https://cashier.servicapp.me/",
+          "github": "GitHub Repository",
+          "githubUrl": "https://github.com/marquezQ/FastCashier"
         }
       },
       {
@@ -70,48 +78,72 @@
         ],
         "links": {
           "demo": "Live Demo",
-          "github": "GitHub Repository"
+          "demoUrl": "https://app.servicapp.me/",
+          "github": "GitHub Repository",
+          "githubUrl": "https://github.com/marquezQ/CarpinPro"
         }
       }
     ]
   },
-
   "skills": {
     "title": "Technical Skills",
     "categories": [
       {
         "name": "Frontend",
-        "items": ["React", "TypeScript", "Tailwind CSS", "shadcn/ui", "React Query", "Bootstrap", "Material UI", "Vite"]
+        "items": [
+          "React",
+          "TypeScript",
+          "Tailwind CSS",
+          "shadcn/ui",
+          "React Query",
+          "Bootstrap",
+          "Material UI",
+          "Vite"
+        ]
       },
       {
         "name": "Backend",
-        "items": ["NestJS", "Node.js", "Laravel", "Java"]
+        "items": [
+          "NestJS",
+          "Node.js",
+          "Laravel",
+          "Java"
+        ]
       },
       {
         "name": "Databases",
-        "items": ["PostgreSQL", "MySQL"]
+        "items": [
+          "PostgreSQL",
+          "MySQL"
+        ]
       },
       {
         "name": "DevOps & Cloud",
-        "items": ["AWS EC2", "Docker", "GitHub Actions", "Nginx", "Cloudflare", "Linux"]
+        "items": [
+          "AWS EC2",
+          "Docker",
+          "GitHub Actions",
+          "Nginx",
+          "Cloudflare",
+          "Linux"
+        ]
       }
     ]
   },
-
   "experience": {
     "title": "Experience",
     "items": [
       {
         "id": "admin-lab",
         "role": "Computer Lab Administrator",
-        "company": "UMSS",
+        "company": "Department of Informatics and Systems UMSS",
         "period": "Jan 2025 – Jan 2026",
         "description": "Managed the lab's technology infrastructure, coordinated lab assistants, provided technical support and taught intensive computer maintenance courses."
       },
       {
         "id": "auxiliar-lab",
         "role": "Computer Lab Assistant",
-        "company": "UMSS",
+        "company": "Department of Informatics and Systems UMSS",
         "period": "Jun 2024 – Dec 2024",
         "description": "Provided technical support, equipment maintenance and user assistance across the computer lab."
       },
@@ -131,18 +163,19 @@
       }
     ]
   },
-
   "contact": {
     "title": "Let's Connect",
     "description": "I'm open to opportunities in full-stack development, backend engineering and cloud applications.",
     "location": "Cochabamba, Bolivia",
     "links": {
       "email": "Email",
+      "emailUrl": "mailto:tu_correo@gmail.com",
       "github": "GitHub",
-      "linkedin": "LinkedIn"
+      "githubUrl": "https://github.com/marquezQ",
+      "linkedin": "LinkedIn",
+      "linkedinUrl": "https://www.linkedin.com/in/pedro-marquez-quiroz/"
     }
   },
-
   "nav": {
     "about": "About",
     "projects": "Projects",
@@ -150,6 +183,5 @@
     "experience": "Experience",
     "contact": "Contact"
   },
-
   "langSwitcher": "Español"
 }
