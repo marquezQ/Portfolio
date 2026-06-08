@@ -86,11 +86,11 @@ pnpm preview      # preview del build
 
 ## Lo que falta por implementar
 
-- [ ] Sección About completa con bio y stack badges
-- [ ] Sección Projects con cards de FastCashier y CarpinPro
-- [ ] Sección Skills con categorías y badges
-- [ ] Sección Experience con timeline
-- [ ] Sección Contact con links y formulario
+- [x] Sección About completa con bio y stack badges
+- [x] Sección Projects con cards de FastCashier y CarpinPro
+- [x] Sección Skills con categorías y badges
+- [x] Sección Experience con timeline
+- [x] Sección Contact con links y formulario
 - [x] Sidebar flotante con estilo card
 - [x] Componentes de sección desacoplados
 - [ ] Responsive / mobile (sidebar como drawer)

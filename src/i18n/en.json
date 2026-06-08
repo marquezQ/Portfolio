@@ -167,6 +167,18 @@
     "title": "Let's Connect",
     "description": "I'm open to opportunities in full-stack development, backend engineering and cloud applications.",
     "location": "Cochabamba, Bolivia",
+    "form": {
+      "nameLabel": "Name",
+      "namePlaceholder": "Enter your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Write your message here...",
+      "submitButton": "Send Message",
+      "sending": "Sending message...",
+      "success": "Message sent successfully.",
+      "error": "Failed to send message."
+    },
     "links": {
       "email": "Email",
       "emailUrl": "mailto:tu_correo@gmail.com",

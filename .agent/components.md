@@ -113,3 +113,11 @@ Esta sección se desvía del diseño tradicional de "tarjetas sueltas" para reso
 - **Diseño de Historial de Commits (Git Log / System Trace)**: Se presenta como una línea de tiempo vertical donde cada trabajo es un nodo o punto de trazado en el sistema.
 - **Metadatos Técnicos**: Las fechas no son simples textos, sino que están formateadas como `timestamps` del sistema `[Ene 2025 – Ene 2026]` usando tipografía `mono` para reforzar la estética OS.
 - **Iconografía Dinámica**: Contiene un `iconMap` interno que asigna iconos específicos basados en el ID del trabajo (ej. `lucide:server` para administrador de laboratorio, `lucide:code` para desarrollo frontend), unificando roles dispares bajo una misma familia visual.
+
+### Contact (`src/components/sections/Contact.astro`)
+Esta sección implementa un formulario de contacto manteniendo el tema visual de "Terminal de Linux" u OS system del portafolio.
+- **Formulario Integrado y AJAX**: Se conecta con Web3Forms mediante un Access Key. Utiliza un script en el cliente que intercepta el evento de envío, realiza la petición vía `fetch` para evitar redirecciones molestas y limpia el formulario tras el éxito.
+- **Diseño OS Theme**: Se estructura como una ventana de terminal (`mail_client_env`) con simulación de prompt (`~ ❯ ./send_message.sh`). No incluye los botones de ventana al estilo macOS, manteniendo un diseño plano y limpio.
+- **Feedback interactivo**: Muestra una línea de estado en la misma terminal para reflejar el estado del envío: `[ RUNNING ]`, `[   OK   ]` y `[ FAILED ]`, con traducción correspondiente al idioma activo.
+- **Protección Antispam**: El correo directo está expuesto de forma oscurecida en el texto visible (`pedro.marquez.quiroz [at] gmail.com`) para evitar el rastreo simple de scrapers automatizados, mientras mantiene el enlace `mailto:` funcional para el usuario real.
+- **Elementos UI**: Los inputs, labels y textareas tienen estilos de terminal (`font-mono`, fondos oscuros y colores de acento al enfocar) consistentes con la sección Skills.

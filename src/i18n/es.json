@@ -167,6 +167,18 @@
     "title": "Conectemos",
     "description": "Estoy abierto a oportunidades en desarrollo full-stack, backend y aplicaciones cloud.",
     "location": "Cochabamba, Bolivia",
+    "form": {
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Ingresa tu nombre",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Ingresa tu correo",
+      "messageLabel": "Mensaje",
+      "messagePlaceholder": "Escribe tu mensaje aquí...",
+      "submitButton": "Enviar Mensaje",
+      "sending": "Enviando mensaje...",
+      "success": "Mensaje enviado con éxito.",
+      "error": "Error al enviar el mensaje."
+    },
     "links": {
       "email": "Email",
       "emailUrl": "mailto:tu_correo@gmail.com",
