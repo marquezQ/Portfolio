@@ -46,8 +46,8 @@ const locText = isEs ? "Cochabamba, Bolivia" : "Cochabamba, Bolivia";
     <!-- Download CV — primary action -->
     <a
       href="#"
-      class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
-             bg-accent text-bg font-mono font-bold text-xs tracking-wider uppercase
+      class="inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl
+             bg-accent text-bg font-mono font-bold text-xs sm:text-sm tracking-wider uppercase
              transition-all duration-200 shadow-md shadow-accent/10
              hover:bg-accent-bright hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5 active:translate-y-0"
     >
@@ -58,8 +58,8 @@ const locText = isEs ? "Cochabamba, Bolivia" : "Cochabamba, Bolivia";
     <!-- View Projects -->
     <a
       href="#projects"
-      class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
-             bg-surface border border-border text-text font-mono font-bold text-xs tracking-wider uppercase
+      class="inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl
+             bg-surface border border-border text-text font-mono font-bold text-xs sm:text-sm tracking-wider uppercase
              transition-all duration-200 hover:border-accent/40 hover:bg-hover hover:-translate-y-0.5 active:translate-y-0"
     >
       <Icon name="lucide:code-2" class="w-4 h-4" />
@@ -71,8 +71,8 @@ const locText = isEs ? "Cochabamba, Bolivia" : "Cochabamba, Bolivia";
       href={t.contact?.links?.githubUrl || "https://github.com/marquezQ"}
       target="_blank"
       rel="noopener noreferrer"
-      class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl
-             bg-surface border border-border text-muted font-mono font-bold text-xs tracking-wider uppercase
+      class="inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl
+             bg-surface border border-border text-muted font-mono font-bold text-xs sm:text-sm tracking-wider uppercase
              transition-all duration-200 hover:text-text hover:border-accent/30 hover:bg-hover hover:-translate-y-0.5 active:translate-y-0"
     >
       <Icon name="simple-icons:github" class="w-4 h-4" />
@@ -84,8 +84,8 @@ const locText = isEs ? "Cochabamba, Bolivia" : "Cochabamba, Bolivia";
       href={t.contact?.links?.linkedinUrl || "https://www.linkedin.com/in/pedro-marquez-quiroz/"}
       target="_blank"
       rel="noopener noreferrer"
-      class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl
-             bg-surface border border-border text-muted font-mono font-bold text-xs tracking-wider uppercase
+      class="inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl
+             bg-surface border border-border text-muted font-mono font-bold text-xs sm:text-sm tracking-wider uppercase
              transition-all duration-200 hover:text-text hover:border-accent/30 hover:bg-hover hover:-translate-y-0.5 active:translate-y-0"
     >
       <Icon name="simple-icons:linkedin" class="w-4 h-4" />
@@ -97,7 +97,7 @@ const locText = isEs ? "Cochabamba, Bolivia" : "Cochabamba, Bolivia";
   <div
     class="rounded-2xl bg-surface border border-border p-6 sm:p-8 shadow-lg shadow-black/10 sidebar-glow"
   >
-    <p class="text-base sm:text-lg text-muted leading-relaxed">
+    <p class="text-sm sm:text-base text-muted leading-relaxed">
       {t.hero.bio}
     </p>
   </div>

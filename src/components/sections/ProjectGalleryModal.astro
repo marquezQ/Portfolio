@@ -8,192 +8,267 @@ interface Props {
 const { projectImagesMap } = Astro.props;
 ---
 
-<!-- MODAL DE GALERÍA (Estructura base) -->
-<dialog id="gallery-modal" class="bg-transparent m-0 w-full max-w-none h-full max-h-none backdrop:bg-black/90 p-4 sm:p-8">
-  <div class="w-full max-w-7xl mx-auto h-full flex flex-col relative bg-surface border border-border/50 rounded-2xl shadow-2xl overflow-hidden">
-    
-    <!-- Modal Header OS Style -->
-    <div class="flex items-center justify-between px-6 py-4 bg-bg border-b border-border/50 shrink-0">
-      <div class="flex items-center gap-2">
-        <Icon name="lucide:layout" class="w-4 h-4 text-muted" />
-        <span id="modal-title" class="font-mono text-xs text-muted uppercase tracking-wider">Gallery View</span>
+<!-- MODAL DE GALERÍA — Hybrid OS Lightbox -->
+<dialog id="gallery-modal" class="fixed inset-0 m-0 p-0 w-full h-full max-w-none max-h-none bg-transparent backdrop:bg-black/85 backdrop:backdrop-blur-sm border-none">
+  
+  <!-- Contenedor: OS Window centrada con respiro en pantallas grandes -->
+  <div class="w-full h-full flex items-center justify-center p-0 md:p-6 lg:p-10">
+    <div class="w-full h-full md:max-w-6xl md:h-[90vh] flex flex-col bg-bg border border-border/70 md:rounded-xl shadow-2xl overflow-hidden min-h-0">
+
+      <!-- ══ HEADER OS-style compacto ══ -->
+      <div class="flex items-center justify-between px-4 py-2.5 bg-surface border-b border-border/60 shrink-0">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <Icon name="lucide:terminal" class="w-3.5 h-3.5 text-accent shrink-0" />
+          <span class="font-mono text-[0.65rem] text-muted uppercase tracking-wider">sys.gallery</span>
+          <span class="text-border/60 font-mono text-[0.65rem]">→</span>
+          <span id="modal-title" class="font-mono text-[0.65rem] text-accent truncate"></span>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
+          <!-- Contador -->
+          <span id="image-counter" class="font-mono text-[0.6rem] text-muted border border-border/50 px-2 py-0.5 rounded bg-bg">[1/1]</span>
+          <!-- Close button -->
+          <button
+            id="close-modal"
+            class="p-1.5 rounded-md hover:bg-hover text-muted hover:text-text transition-colors active:scale-95"
+            aria-label="Close gallery"
+          >
+            <Icon name="lucide:x" class="w-4 h-4" />
+          </button>
+        </div>
       </div>
-      <button id="close-modal" class="p-2 rounded-lg hover:bg-hover text-muted hover:text-text transition-colors">
-        <Icon name="lucide:x" class="w-5 h-5" />
-      </button>
-    </div>
 
-    <!-- Modal Content (Carousel) -->
-    <div class="flex-1 p-4 md:p-8 flex items-center justify-center bg-bg/50 relative">
-      <button id="gallery-prev" class="absolute left-4 p-3 rounded-full bg-surface border border-border hover:border-accent/50 text-text transition-colors z-10 shadow-lg hidden md:block">
-        <Icon name="lucide:chevron-left" class="w-6 h-6" />
-      </button>
-      
-      <div class="w-full h-full rounded-lg overflow-hidden border border-border bg-bg flex items-center justify-center shadow-inner relative">
-         <!-- Imagen a pantalla completa (Animada con opacidad) -->
-         <img id="modal-image" src="" alt="Gallery" class="w-full h-full object-contain transition-opacity duration-200" />
+      <!-- ══ ZONA DE IMAGEN (ocupa todo el espacio restante) ══ -->
+      <div class="flex-1 bg-bg flex items-center justify-center relative min-h-0 group/image">
+        
+        <!-- Imagen Principal -->
+        <img
+          id="modal-image"
+          src=""
+          alt="Gallery preview"
+          class="w-full h-full object-contain transition-opacity duration-200"
+        />
+
+        <!-- Prev Arrow — visible en hover, siempre accesible -->
+        <button
+          id="gallery-prev"
+          class="absolute left-3 top-1/2 -translate-y-1/2 z-20
+                 flex items-center justify-center
+                 w-9 h-9 rounded-lg
+                 bg-surface/80 backdrop-blur-sm border border-border/60
+                 text-text opacity-0 group-hover/image:opacity-100
+                 hover:border-accent/50 hover:text-accent
+                 transition-all duration-200 active:scale-95 shadow-lg"
+          aria-label="Previous image"
+        >
+          <Icon name="lucide:chevron-left" class="w-5 h-5" />
+        </button>
+
+        <!-- Next Arrow -->
+        <button
+          id="gallery-next"
+          class="absolute right-3 top-1/2 -translate-y-1/2 z-20
+                 flex items-center justify-center
+                 w-9 h-9 rounded-lg
+                 bg-surface/80 backdrop-blur-sm border border-border/60
+                 text-text opacity-0 group-hover/image:opacity-100
+                 hover:border-accent/50 hover:text-accent
+                 transition-all duration-200 active:scale-95 shadow-lg"
+          aria-label="Next image"
+        >
+          <Icon name="lucide:chevron-right" class="w-5 h-5" />
+        </button>
+
+        <!-- Mobile tap zones (izquierda y derecha invisible, para touch) -->
+        <div id="tap-prev" class="absolute left-0 top-0 h-full w-1/3 z-10 md:hidden cursor-pointer"></div>
+        <div id="tap-next" class="absolute right-0 top-0 h-full w-1/3 z-10 md:hidden cursor-pointer"></div>
       </div>
 
-      <button id="gallery-next" class="absolute right-4 p-3 rounded-full bg-surface border border-border hover:border-accent/50 text-text transition-colors z-10 shadow-lg hidden md:block">
-        <Icon name="lucide:chevron-right" class="w-6 h-6" />
-      </button>
-    </div>
+      <!-- ══ FOOTER: Dot Indicators ══ -->
+      <div class="shrink-0 flex items-center justify-center gap-2 py-3 px-4 bg-surface border-t border-border/40">
+        <div id="gallery-dots" class="flex items-center gap-2">
+          <!-- Los dots se generan dinámicamente -->
+        </div>
+      </div>
 
-    <!-- Thumbnail bar -->
-    <div id="gallery-thumbnails" class="h-28 bg-bg border-t border-border/50 p-4 flex items-center justify-center gap-4 shrink-0 overflow-x-auto">
-      <!-- Las miniaturas se generarán dinámicamente aquí vía JS -->
     </div>
   </div>
 </dialog>
 
 <script define:vars={{ projectImagesMap }}>
   function initGallery() {
-    const modal = document.getElementById('gallery-modal');
-    const closeBtn = document.getElementById('close-modal');
-    const modalImage = document.getElementById('modal-image');
-    const galleryButtons = document.querySelectorAll('[data-gallery]');
-    const prevBtn = document.getElementById('gallery-prev');
-    const nextBtn = document.getElementById('gallery-next');
-    const thumbnailContainer = document.getElementById('gallery-thumbnails');
-    
+    const modal     = document.getElementById('gallery-modal');
+    const closeBtn  = document.getElementById('close-modal');
+    const modalImg  = document.getElementById('modal-image');
+    const prevBtn   = document.getElementById('gallery-prev');
+    const nextBtn   = document.getElementById('gallery-next');
+    const tapPrev   = document.getElementById('tap-prev');
+    const tapNext   = document.getElementById('tap-next');
+    const dotsEl    = document.getElementById('gallery-dots');
+    const counterEl = document.getElementById('image-counter');
+    const titleEl   = document.getElementById('modal-title');
+    const galleryBtns = document.querySelectorAll('[data-gallery]');
+
+    if (!modal || !closeBtn || !modalImg) return;
+
     let currentProjectId = null;
-    let currentIndex = 0;
+    let currentIndex     = 0;
 
-    if (!modal || !closeBtn || !modalImage) return;
-
+    // ─── Render image con fade ───────────────────────────────────
     function renderImage(index) {
-       modalImage.style.opacity = '0';
-       setTimeout(() => {
-         modalImage.src = projectImagesMap[currentProjectId][index];
-         modalImage.onload = () => {
-           modalImage.style.opacity = '1';
-         };
-       }, 150); // Pequeño delay para el efecto fade
-       
-       // Actualizar estado de las miniaturas
-       document.querySelectorAll('.gallery-thumb').forEach((thumb, i) => {
-         if (i === index) {
-           thumb.classList.add('border-accent', 'opacity-100');
-           thumb.classList.remove('border-border/50', 'opacity-50');
-         } else {
-           thumb.classList.remove('border-accent', 'opacity-100');
-           thumb.classList.add('border-border/50', 'opacity-50');
-         }
-       });
+      modalImg.style.opacity = '0';
+      setTimeout(() => {
+        modalImg.src = projectImagesMap[currentProjectId][index];
+        modalImg.onload = () => { modalImg.style.opacity = '1'; };
+      }, 120);
+
+      // Update counter
+      const total = projectImagesMap[currentProjectId].length;
+      if (counterEl) counterEl.textContent = `[${index + 1}/${total}]`;
+
+      // Update dots
+      if (dotsEl) {
+        dotsEl.querySelectorAll('.gallery-dot').forEach((dot, i) => {
+          if (i === index) {
+            dot.classList.add('bg-accent', 'w-5', 'rounded-sm');
+            dot.classList.remove('bg-muted/40', 'w-2', 'rounded-full');
+          } else {
+            dot.classList.add('bg-muted/40', 'w-2', 'rounded-full');
+            dot.classList.remove('bg-accent', 'w-5', 'rounded-sm');
+          }
+        });
+      }
     }
 
-    // Abrir modal con View Transitions
-    galleryButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const target = e.currentTarget;
-        currentProjectId = target.dataset.gallery;
-        currentIndex = 0;
-        
-        // Si no hay imágenes para este proyecto, ignorar
-        if (!projectImagesMap[currentProjectId] || projectImagesMap[currentProjectId].length === 0) return;
-        
-        const coverImg = document.getElementById(`cover-${currentProjectId}`);
+    // ─── Renderizar dots ─────────────────────────────────────────
+    function renderDots(images) {
+      if (!dotsEl) return;
+      dotsEl.innerHTML = '';
+      images.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = `gallery-dot h-2 transition-all duration-300 cursor-pointer ${
+          i === 0
+            ? 'w-5 bg-accent rounded-sm'
+            : 'w-2 bg-muted/40 rounded-full hover:bg-muted'
+        }`;
+        dot.setAttribute('aria-label', `Go to image ${i + 1}`);
+        dot.onclick = () => { currentIndex = i; renderImage(i); };
+        dotsEl.appendChild(dot);
+      });
+    }
 
-        const setupModalContent = () => {
-           modalImage.src = projectImagesMap[currentProjectId][0];
-           
-           // Renderizar miniaturas
-           if(thumbnailContainer) {
-              thumbnailContainer.innerHTML = '';
-              projectImagesMap[currentProjectId].forEach((src, i) => {
-                 const thumb = document.createElement('img');
-                 thumb.src = src;
-                 thumb.className = `gallery-thumb min-w-[80px] sm:min-w-[120px] w-20 sm:w-32 h-full object-cover rounded-lg cursor-pointer transition-all border-2 ${i === 0 ? 'border-accent opacity-100' : 'border-border/50 opacity-50 hover:opacity-100'}`;
-                 thumb.onclick = () => { currentIndex = i; renderImage(currentIndex); };
-                 thumbnailContainer.appendChild(thumb);
-              });
-           }
-        };
+    // ─── Setup del contenido del modal ───────────────────────────
+    function setupModalContent(projectId) {
+      currentProjectId = projectId;
+      currentIndex = 0;
+
+      const images = projectImagesMap[projectId];
+      if (!images || images.length === 0) return;
+
+      // Titulo
+      if (titleEl) titleEl.textContent = projectId;
+
+      // Imagen inicial (sin fade — se muestra al abrir)
+      modalImg.src = images[0];
+      modalImg.style.opacity = '1';
+
+      // Counter inicial
+      if (counterEl) counterEl.textContent = `[1/${images.length}]`;
+
+      // Dots
+      renderDots(images);
+
+      // Ocultar flechas si hay una sola imagen
+      const showArrows = images.length > 1;
+      if (prevBtn) prevBtn.style.display = showArrows ? '' : 'none';
+      if (nextBtn) nextBtn.style.display = showArrows ? '' : 'none';
+    }
+
+    // ─── Navegación ──────────────────────────────────────────────
+    const handlePrev = () => {
+      if (!currentProjectId) return;
+      const len = projectImagesMap[currentProjectId].length;
+      currentIndex = (currentIndex > 0) ? currentIndex - 1 : len - 1;
+      renderImage(currentIndex);
+    };
+
+    const handleNext = () => {
+      if (!currentProjectId) return;
+      const len = projectImagesMap[currentProjectId].length;
+      currentIndex = (currentIndex < len - 1) ? currentIndex + 1 : 0;
+      renderImage(currentIndex);
+    };
+
+    if (prevBtn)  prevBtn.addEventListener('click', handlePrev);
+    if (nextBtn)  nextBtn.addEventListener('click', handleNext);
+    if (tapPrev)  tapPrev.addEventListener('click', handlePrev);
+    if (tapNext)  tapNext.addEventListener('click', handleNext);
+
+    // Keyboard navigation
+    const onKeydown = (e) => {
+      if (!modal.open) return;
+      if (e.key === 'ArrowLeft')  handlePrev();
+      if (e.key === 'ArrowRight') handleNext();
+      if (e.key === 'Escape')     closeModal();
+    };
+    document.addEventListener('keydown', onKeydown);
+
+    // ─── Abrir modal ─────────────────────────────────────────────
+    galleryBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const projectId = e.currentTarget.dataset.gallery;
+        if (!projectImagesMap[projectId]?.length) return;
+
+        const coverImg = document.getElementById(`cover-${projectId}`);
 
         const executeOpen = () => {
-           if (coverImg) coverImg.style.viewTransitionName = 'none';
-           modalImage.style.viewTransitionName = 'gallery-morph';
-           setupModalContent();
-           modal.showModal();
-           document.body.style.overflow = 'hidden';
+          if (coverImg) coverImg.style.viewTransitionName = 'none';
+          modalImg.style.viewTransitionName = 'gallery-morph';
+          setupModalContent(projectId);
+          modal.showModal();
+          document.body.style.overflow = 'hidden';
         };
 
         if (document.startViewTransition && coverImg) {
-          // 1. Preparar el estado inicial
           coverImg.style.viewTransitionName = 'gallery-morph';
-          modalImage.style.viewTransitionName = 'none';
-          
-          // 2. Iniciar la transición
-          const transition = document.startViewTransition(() => executeOpen());
-          
-          // 3. IMPORTANTÍSIMO: Limpiar estado al terminar para evitar bugs
-          transition.finished.then(() => {
-             modalImage.style.viewTransitionName = 'none';
-          });
+          modalImg.style.viewTransitionName = 'none';
+          const t = document.startViewTransition(() => executeOpen());
+          t.finished.then(() => { modalImg.style.viewTransitionName = 'none'; });
         } else {
-          setupModalContent();
-          modal.showModal();
-          document.body.style.overflow = 'hidden';
+          executeOpen();
         }
       });
     });
 
-    // Cerrar modal
+    // ─── Cerrar modal ─────────────────────────────────────────────
     const closeModal = () => {
       const coverImg = document.getElementById(`cover-${currentProjectId}`);
-      
+
       const executeClose = () => {
-         modal.close();
-         document.body.style.overflow = '';
-         modalImage.style.viewTransitionName = 'none';
-         if (coverImg) coverImg.style.viewTransitionName = 'none';
+        modal.close();
+        document.body.style.overflow = '';
+        modalImg.style.viewTransitionName = 'none';
+        if (coverImg) coverImg.style.viewTransitionName = 'none';
       };
-      
+
       if (document.startViewTransition && coverImg) {
-         // Preparar estado inicial para cierre
-         modalImage.style.viewTransitionName = 'gallery-morph';
-         if (coverImg) coverImg.style.viewTransitionName = 'none';
-         
-         const transition = document.startViewTransition(() => {
-            modal.close();
-            document.body.style.overflow = '';
-            modalImage.style.viewTransitionName = 'none';
-            if (coverImg) coverImg.style.viewTransitionName = 'gallery-morph';
-         });
-         
-         // Limpiar nombres al terminar
-         transition.finished.then(() => {
-            if (coverImg) coverImg.style.viewTransitionName = 'none';
-         });
+        modalImg.style.viewTransitionName = 'gallery-morph';
+        if (coverImg) coverImg.style.viewTransitionName = 'none';
+        const t = document.startViewTransition(() => {
+          modal.close();
+          document.body.style.overflow = '';
+          modalImg.style.viewTransitionName = 'none';
+          if (coverImg) coverImg.style.viewTransitionName = 'gallery-morph';
+        });
+        t.finished.then(() => {
+          if (coverImg) coverImg.style.viewTransitionName = 'none';
+        });
       } else {
-         executeClose();
+        executeClose();
       }
     };
 
     closeBtn.addEventListener('click', closeModal);
-    
-    // Controles de Carrusel
-    if(prevBtn) {
-      prevBtn.addEventListener('click', () => {
-         if(currentProjectId && projectImagesMap[currentProjectId]) {
-            currentIndex = (currentIndex > 0) ? currentIndex - 1 : projectImagesMap[currentProjectId].length - 1;
-            renderImage(currentIndex);
-         }
-      });
-    }
-    if(nextBtn) {
-      nextBtn.addEventListener('click', () => {
-         if(currentProjectId && projectImagesMap[currentProjectId]) {
-            currentIndex = (currentIndex < projectImagesMap[currentProjectId].length - 1) ? currentIndex + 1 : 0;
-            renderImage(currentIndex);
-         }
-      });
-    }
-
-    // Cerrar haciendo click en el backdrop
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
   }
 
   initGallery();

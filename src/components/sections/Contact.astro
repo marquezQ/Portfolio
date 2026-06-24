@@ -13,7 +13,7 @@ const { t } = Astro.props;
     <h2 class="text-3xl md:text-4xl font-extrabold text-text tracking-tight mb-3">
       {t.contact.title}
     </h2>
-    <p class="text-base sm:text-lg text-muted max-w-2xl leading-relaxed">
+    <p class="text-base sm:text-lg text-muted leading-relaxed">
       {t.contact.description}
     </p>
   </div>
@@ -117,7 +117,7 @@ const { t } = Astro.props;
         <!-- Direct Email Fallback (Anti-spam obscured) -->
         <div class="mt-8 pt-6 border-t border-border/20 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p class="text-xs text-dim uppercase tracking-wider">
-            ¿O prefieres correo directo?
+            {t.contact.directEmailText}
           </p>
           <a 
             href={t.contact.links.emailUrl}

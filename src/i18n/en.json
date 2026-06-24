@@ -166,6 +166,7 @@
   "contact": {
     "title": "Let's Connect",
     "description": "I'm open to opportunities in full-stack development, backend engineering and cloud applications.",
+    "directEmailText": "Or prefer direct email?",
     "location": "Cochabamba, Bolivia",
     "form": {
       "nameLabel": "Name",

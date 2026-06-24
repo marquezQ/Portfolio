@@ -166,6 +166,7 @@
   "contact": {
     "title": "Conectemos",
     "description": "Estoy abierto a oportunidades en desarrollo full-stack, backend y aplicaciones cloud.",
+    "directEmailText": "¿O prefieres correo directo?",
     "location": "Cochabamba, Bolivia",
     "form": {
       "nameLabel": "Nombre",
