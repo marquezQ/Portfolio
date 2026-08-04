@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import cvUrl from "../../assets/cv/Pedro-Marquez-CV.pdf";
 
 interface Props {
   lang: string;
@@ -45,7 +46,8 @@ const locText = isEs ? "Cochabamba, Bolivia" : "Cochabamba, Bolivia";
   <div class="flex flex-wrap items-center gap-3">
     <!-- Download CV — primary action -->
     <a
-      href="#"
+      href={cvUrl}
+      download="Pedro-Marquez-CV.pdf"
       class="inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl
              bg-accent text-bg font-mono font-bold text-xs sm:text-sm tracking-wider uppercase
              transition-all duration-200 shadow-md shadow-accent/10
