@@ -167,6 +167,7 @@
     "title": "Let's Connect",
     "description": "I'm open to opportunities in full-stack development, backend engineering and cloud applications.",
     "directEmailText": "Or prefer direct email?",
+    "email": "pedro.marquez.quiroz@gmail.com",
     "location": "Cochabamba, Bolivia",
     "form": {
       "nameLabel": "Name",
@@ -181,8 +182,6 @@
       "error": "Failed to send message."
     },
     "links": {
-      "email": "Email",
-      "emailUrl": "mailto:tu_correo@gmail.com",
       "github": "GitHub",
       "githubUrl": "https://github.com/marquezQ",
       "linkedin": "LinkedIn",

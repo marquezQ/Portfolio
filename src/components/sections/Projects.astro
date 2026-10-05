@@ -9,23 +9,36 @@ interface Props {
 
 const { t } = Astro.props;
 
-// Optimización Dinámica de Imágenes en tiempo de Build (Genera WebP automáticamente)
+type Optimized = { path: string; src: string };
+
 const allImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/projects/*/*.{jpeg,jpg,png,gif}', { eager: true });
 
-const projectImagesMap: Record<string, string[]> = {
-  fastcashier: [],
-  carpinpro: []
+const projectFolders: Record<string, string> = {
+  fastcashier: 'FastCashier',
+  carpinpro: 'CarpinPro'
 };
 
-// Iteramos y optimizamos todas las imágenes usando Astro Image Optimization
-for (const path in allImages) {
-  const file = allImages[path];
-  const optImg = await getImage({ src: file.default, format: 'webp' });
-  
-  // Asignamos basándonos en la ruta de la carpeta
-  if (path.includes('FastCashier')) projectImagesMap.fastcashier.push(optImg.src);
-  if (path.includes('CarpinPro')) projectImagesMap.carpinpro.push(optImg.src);
-}
+// `import.meta.glob` no garantiza orden, así que ordenamos por ruta origen:
+// sin esto la galería cambiaría de orden entre builds.
+const paths = Object.keys(allImages).sort();
+
+// Optimizamos en paralelo (Promise.all) en vez de en serie.
+const optimized: Optimized[] = await Promise.all(
+  paths.map(async (path) => ({
+    path,
+    src: (await getImage({ src: allImages[path].default, format: 'webp' })).src
+  }))
+);
+
+const projectImagesMap: Record<string, string[]> = Object.fromEntries(
+  Object.keys(projectFolders).map((id) => [
+    id,
+    optimized
+      .filter(({ path }) => path.includes(`/${projectFolders[id]}/`))
+      .sort((a, b) => a.path.localeCompare(b.path))
+      .map(({ src }) => src)
+  ])
+);
 ---
 
 <section id="projects" class="py-12 md:py-20 flex flex-col gap-10">

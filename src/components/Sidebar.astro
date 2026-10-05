@@ -11,6 +11,13 @@ interface Props {
 const { lang, t } = Astro.props;
 const otherLang = lang === "es" ? "en" : "es";
 
+// Aria-labels del toggle de tema, traducidos según el idioma activo.
+const themeLabels: Record<string, { dark: string; light: string }> = {
+  es: { dark: "Cambiar a modo oscuro", light: "Cambiar a modo claro" },
+  en: { dark: "Switch to dark mode", light: "Switch to light mode" },
+};
+const themeLabel = themeLabels[lang] ?? themeLabels.es;
+
 const navItems = [
   { key: "about", icon: "lucide:user" },
   { key: "projects", icon: "lucide:code-2" },
@@ -29,7 +36,7 @@ const navItems = [
   <!-- ─── Profile ─── -->
   <div class="flex flex-col items-center gap-4 px-6 pt-8 pb-5">
     <div
-      class="relative p-1 rounded-2xl bg-gradient-to-b from-accent/20 to-transparent"
+      class="relative p-1 rounded-2xl bg-linear-to-b from-accent/20 to-transparent"
     >
       <Image
         src={avatarImg}
@@ -72,7 +79,9 @@ const navItems = [
       class="flex items-center justify-center w-8 h-8 rounded-full
              text-muted transition-colors duration-200
              hover:text-accent hover:bg-hover"
-      aria-label="Toggle theme"
+      aria-label={themeLabel.dark}
+      data-label-dark={themeLabel.dark}
+      data-label-light={themeLabel.light}
     >
       <span id="theme-icon" class="text-base leading-none">🌙</span>
     </button>
@@ -106,10 +115,10 @@ const navItems = [
     const update = () => {
       const isDark = document.documentElement.classList.contains("dark");
       icon.textContent = isDark ? "🌙" : "☀️";
-      btn.setAttribute(
-        "aria-label",
-        isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro",
-      );
+
+      // El aria-label anuncia la acción disponible (ir al modo contrario).
+      const nextLabel = isDark ? btn.dataset.labelLight : btn.dataset.labelDark;
+      if (nextLabel) btn.setAttribute("aria-label", nextLabel);
     };
 
     update();

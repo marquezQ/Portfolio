@@ -183,6 +183,32 @@ const { projectImagesMap } = Astro.props;
       if (nextBtn) nextBtn.style.display = showArrows ? '' : 'none';
     }
 
+    // ─── Cerrar modal ─────────────────────────────────────────────
+    const closeModal = () => {
+      const coverImg = document.getElementById(`cover-${currentProjectId}`);
+
+      const executeClose = () => {
+        modal.close();
+        modalImg.style.viewTransitionName = 'none';
+        if (coverImg) coverImg.style.viewTransitionName = 'none';
+      };
+
+      if (document.startViewTransition && coverImg) {
+        modalImg.style.viewTransitionName = 'gallery-morph';
+        coverImg.style.viewTransitionName = 'none';
+        const t = document.startViewTransition(() => {
+          modal.close();
+          modalImg.style.viewTransitionName = 'none';
+          coverImg.style.viewTransitionName = 'gallery-morph';
+        });
+        t.finished.then(() => {
+          coverImg.style.viewTransitionName = 'none';
+        });
+      } else {
+        executeClose();
+      }
+    };
+
     // ─── Navegación ──────────────────────────────────────────────
     const handlePrev = () => {
       if (!currentProjectId) return;
@@ -225,7 +251,6 @@ const { projectImagesMap } = Astro.props;
           modalImg.style.viewTransitionName = 'gallery-morph';
           setupModalContent(projectId);
           modal.showModal();
-          document.body.style.overflow = 'hidden';
         };
 
         if (document.startViewTransition && coverImg) {
@@ -238,34 +263,6 @@ const { projectImagesMap } = Astro.props;
         }
       });
     });
-
-    // ─── Cerrar modal ─────────────────────────────────────────────
-    const closeModal = () => {
-      const coverImg = document.getElementById(`cover-${currentProjectId}`);
-
-      const executeClose = () => {
-        modal.close();
-        document.body.style.overflow = '';
-        modalImg.style.viewTransitionName = 'none';
-        if (coverImg) coverImg.style.viewTransitionName = 'none';
-      };
-
-      if (document.startViewTransition && coverImg) {
-        modalImg.style.viewTransitionName = 'gallery-morph';
-        if (coverImg) coverImg.style.viewTransitionName = 'none';
-        const t = document.startViewTransition(() => {
-          modal.close();
-          document.body.style.overflow = '';
-          modalImg.style.viewTransitionName = 'none';
-          if (coverImg) coverImg.style.viewTransitionName = 'gallery-morph';
-        });
-        t.finished.then(() => {
-          if (coverImg) coverImg.style.viewTransitionName = 'none';
-        });
-      } else {
-        executeClose();
-      }
-    };
 
     closeBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });

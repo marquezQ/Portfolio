@@ -21,6 +21,8 @@
   --color-accent-bright:  var(--c-accent-bright);
   --color-accent-dim:     var(--c-accent-dim);
   --color-accent-glow:    var(--c-accent-glow);
+  --color-success:        var(--c-success);
+  --color-danger:         var(--c-danger);
 
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
@@ -40,6 +42,8 @@
   --c-accent-bright:  #06b6d4;
   --c-accent-dim:     #0e7490;
   --c-accent-glow:    rgba(6, 182, 212, 0.15);
+  --c-success:        #15803d;
+  --c-danger:         #b91c1c;
 }
 
 /* ─── Dark Mode ─── */
@@ -56,6 +60,8 @@
   --c-accent-bright:  #67e8f9;
   --c-accent-dim:     #0891b2;
   --c-accent-glow:    rgba(34, 211, 238, 0.12);
+  --c-success:        #4ade80;
+  --c-danger:         #f87171;
 }
 
 /* ─── Base ─── */
@@ -87,6 +93,13 @@
 
   code, pre, .mono {
     font-family: var(--font-mono);
+  }
+
+  /* Modal lock: se bloquea el contenedor scrolleable real (#content-scroll),
+     no <body>, que no es el elemento que scrollea en este layout.
+     Declarativo para que no dependa de JS ni deje estado sin limpiar. */
+  body:has(#gallery-modal[open]) #content-scroll {
+    overflow: hidden;
   }
 
   /* Scrollbar — main content only */
@@ -177,11 +190,25 @@
   .text-dim-custom    { color: var(--c-dim); }
   .text-accent-custom { color: var(--c-accent); }
 
-  /* Prose for long descriptions */
+  /* Prose for long descriptions.
+     Todos los tokens --tw-prose-* apuntan a variables CSS, de modo que la
+     prosa hereda el tema sin necesitar variantes `prose-invert` / `dark:`. */
   .prose-portfolio {
     --tw-prose-body: var(--c-muted);
     --tw-prose-headings: var(--c-text);
+    --tw-prose-lead: var(--c-text);
     --tw-prose-links: var(--c-accent);
+    --tw-prose-bold: var(--c-text);
+    --tw-prose-counters: var(--c-dim);
+    --tw-prose-bullets: var(--c-accent);
+    --tw-prose-hr: var(--c-border);
+    --tw-prose-quotes: var(--c-text);
+    --tw-prose-quote-borders: var(--c-accent);
+    --tw-prose-captions: var(--c-dim);
     --tw-prose-code: var(--c-accent);
+    --tw-prose-pre-code: var(--c-text);
+    --tw-prose-pre-bg: var(--c-hover);
+    --tw-prose-th-borders: var(--c-border);
+    --tw-prose-td-borders: var(--c-border-dim);
   }
 }

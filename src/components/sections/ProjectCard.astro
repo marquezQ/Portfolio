@@ -38,7 +38,9 @@ const getIcon = (tech: string) => iconMap[tech] || 'lucide:code';
       <p class="text-accent font-mono text-xs tracking-wider uppercase">{project.subtitle}</p>
     </div>
     
-    <div class="prose prose-invert prose-p:text-muted mb-4 max-w-none">
+    <!-- `prose-portfolio` (no `prose-invert`): los tokens --tw-prose-* apuntan a
+         variables CSS, así que la paleta se adapta sola a light/dark. -->
+    <div class="prose prose-portfolio mb-4 max-w-none">
       <p class="text-sm sm:text-base leading-relaxed text-text/90 m-0">{project.description}</p>
       {project.note && (
          <p class="text-xs border-l-2 border-accent/50 pl-3 italic text-dim-custom mt-3 m-0">{project.note}</p>
