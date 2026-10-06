@@ -29,7 +29,7 @@ const navItems = [
 
 <!-- Sidebar card — sticky, reserves space, visually floating via parent padding -->
 <aside
-  class="sticky top-4 z-50 flex h-[calc(100vh-2rem)] flex-col
+  class="sticky top-4 z-50 flex h-[calc(100dvh-2rem)] flex-col
          rounded-2xl bg-surface border border-border
          shadow-lg shadow-black/20 sidebar-glow"
 >
@@ -90,7 +90,10 @@ const navItems = [
   <div class="h-px bg-border/60 mx-6"></div>
 
   <!-- ─── Navigation ─── -->
-  <nav class="flex-1 flex flex-col gap-1.5 px-3 py-5">
+  <!-- min-h-0 es imprescindible: sin él un flex child no baja de su altura
+         mínima y el overflow-y-auto no se aplica. Sin scroll, en pantallas
+         bajas (móvil en horizontal) la nav se recortaba sin salida. -->
+  <nav class="flex-1 min-h-0 overflow-y-auto overscroll-contain flex flex-col gap-1.5 px-3 py-5">
     {
       navItems.map(({ key, icon }) => (
         <a href={`#${key}`} data-section={key} class="nav-link">

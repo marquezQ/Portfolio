@@ -1,7 +1,15 @@
 /* Google Fonts — must be before @import "tailwindcss" to avoid @import order warnings */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
 
+/* Tailwind autodetecta fuentes desde la raíz del proyecto y NO respeta .gitignore,
+   así que escanea dist/ (build anterior, con el markup viejo del layout), los .md de
+   .agents/ (docs con ejemplos de clases del layout antiguo) y README.md, cuya prosa
+   contiene palabras como "static" que el escáner lee como clases. Todas ellas
+   generan utilidades que no existen en ningún markup. Rutas relativas a este archivo. */
 @import "tailwindcss";
+@source not "../../dist";
+@source not "../../.agents";
+@source not "../../README.md";
 @plugin "@tailwindcss/typography";
 
 /* Tailwind v4: dark mode via class strategy */
@@ -72,8 +80,14 @@
     border-color: var(--c-border);
   }
 
-  html {
-    scroll-behavior: smooth;
+  /* El scroller raíz queda bloqueado a propósito: todo el scroll de la app
+     ocurre en #content-scroll. Sin esto, en móvil el frame queda scrolleable
+     por la diferencia entre 100vh y el viewport visible (barra de URL), y el
+     navbar con su botón de menú se sale de la pantalla sin forma de recuperarlo. */
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
   }
 
   body {

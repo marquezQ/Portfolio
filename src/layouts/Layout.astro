@@ -44,18 +44,21 @@ const { lang, t } = Astro.props;
              transition-opacity duration-300 lg:hidden"
     ></div>
 
-    <div class="flex h-screen overflow-hidden">
+    <!-- El frame usa unidades dinámicas de viewport (dvh) en lugar de las
+         clásicas: con el viewport "large" el documento queda scrolleable por
+         la diferencia con la barra de URL, y el navbar se sale de pantalla. -->
+    <div class="flex h-dvh overflow-hidden">
       <!-- Sidebar container — Drawer on mobile, Sticky on desktop -->
       <div
         id="sidebar-wrapper"
         class="fixed inset-y-0 left-0 z-50 w-76 p-4 -translate-x-full transition-transform duration-300
-               lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen lg:shrink-0 lg:p-4 lg:w-80"
+               lg:translate-x-0 lg:sticky lg:top-0 lg:h-dvh lg:shrink-0 lg:p-4 lg:w-80"
       >
         <Sidebar lang={lang} t={t} />
       </div>
 
       <!-- Main content column — flex container spanning full height -->
-      <main class="flex-1 flex flex-col h-screen min-w-0 overflow-hidden">
+      <main class="flex-1 flex flex-col h-dvh min-w-0 overflow-hidden">
 
         <!-- Header / Breadcrumb — outside scroll, always visible at the top -->
         <div class="shrink-0 w-full">
@@ -67,6 +70,8 @@ const { lang, t } = Astro.props;
                   id="menu-toggle"
                   class="lg:hidden p-1 -ml-1 text-muted hover:text-text hover:bg-hover rounded transition-colors duration-200"
                   aria-label="Toggle menu"
+                  aria-expanded="false"
+                  aria-controls="sidebar-wrapper"
                 >
                   <Icon name="lucide:menu" class="w-5 h-5" />
                 </button>
@@ -80,8 +85,10 @@ const { lang, t } = Astro.props;
           </div>
         </div>
 
-        <!-- Scrollable content area — same max-width for perfect alignment -->
-        <div id="content-scroll" class="flex-1 overflow-y-auto w-full">
+        <!-- Único scroller de la app. `scroll-smooth` vive aquí (y no en `html`)
+             para que la animación no se propague al raíz. `overscroll-contain`
+             evita que el momentum táctil se encadene hacia arriba. -->
+        <div id="content-scroll" class="flex-1 overflow-y-auto overscroll-contain scroll-smooth w-full">
           <div class="max-w-7xl mx-auto px-4 md:px-6 pb-12">
             <slot />
           </div>
@@ -99,21 +106,30 @@ const { lang, t } = Astro.props;
 
         if (!menuToggle || !sidebarWrapper || !backdrop) return;
 
-        const openDrawer = () => {
-          sidebarWrapper.classList.remove('-translate-x-full');
-          backdrop.classList.add('opacity-100', 'pointer-events-auto');
-          backdrop.classList.remove('opacity-0', 'pointer-events-none');
+        // El drawer solo existe por debajo de `lg`: allí el botón tiene layout,
+        // en desktop está oculto con `lg:hidden` y el sidebar es sticky.
+        const isDrawerMode = () => menuToggle.offsetParent !== null;
+
+        const setDrawer = (open: boolean) => {
+          sidebarWrapper.classList.toggle('-translate-x-full', !open);
+          backdrop.classList.toggle('opacity-100', open);
+          backdrop.classList.toggle('pointer-events-auto', open);
+          backdrop.classList.toggle('opacity-0', !open);
+          backdrop.classList.toggle('pointer-events-none', !open);
+          menuToggle.setAttribute('aria-expanded', String(open));
         };
 
-        const closeDrawer = () => {
-          sidebarWrapper.classList.add('-translate-x-full');
-          backdrop.classList.remove('opacity-100', 'pointer-events-auto');
-          backdrop.classList.add('opacity-0', 'pointer-events-none');
-        };
+        const isOpen = () => !sidebarWrapper.classList.contains('-translate-x-full');
 
-        menuToggle.addEventListener('click', openDrawer);
-        backdrop.addEventListener('click', closeDrawer);
-        navLinks.forEach(link => link.addEventListener('click', closeDrawer));
+        setDrawer(false);
+
+        menuToggle.addEventListener('click', () => setDrawer(!isOpen()));
+        backdrop.addEventListener('click', () => setDrawer(false));
+        navLinks.forEach((link) => link.addEventListener('click', () => setDrawer(false)));
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && isDrawerMode() && isOpen()) setDrawer(false);
+        });
       }
 
       initDrawer();
