@@ -1,0 +1,47 @@
+name: Deploy Portfolio
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:   # permite lanzarlo a mano desde la pestaña Actions
+
+# Si llegan dos pushes seguidos, el segundo espera al primero (evita dos builds a la vez)
+concurrency:
+  group: deploy-portfolio
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy Portfolio en el VPS
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            export COREPACK_ENABLE_DOWNLOAD_PROMPT=0   # que corepack no pregunte nada en modo no interactivo
+
+            echo "========== Conexión =========="
+            whoami
+            hostname
+
+            echo "========== Actualizando código =========="
+            cd /var/www/portfolio
+            git fetch origin main
+            git reset --hard origin/main
+
+            echo "========== Instalando dependencias =========="
+            pnpm install --frozen-lockfile
+
+            echo "========== Compilando =========="
+            pnpm build
+
+            echo "========== Verificando build =========="
+            ls dist/index.html dist/es/index.html dist/en/index.html
+
+            echo "========== Deploy finalizado =========="
