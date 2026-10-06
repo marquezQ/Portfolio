@@ -6,6 +6,7 @@
     "stack": [
       "React",
       "TypeScript",
+      "React Native",
       "NestJS",
       "PostgreSQL",
       "AWS",
@@ -22,6 +23,35 @@
   "projects": {
     "title": "Proyectos Destacados",
     "items": [
+      {
+        "id": "PrestamosYA",
+        "name": "PrestamosYA",
+        "subtitle": "App móvil y API para gestión de préstamos",
+        "description": "App móvil con backend propio para que prestamistas administren su cartera de créditos en Bolivianos y Dólares. Incluye emisión de préstamos con simulador, cobro diario con distribución automática FIFO, clientes geolocalizados, garantías con fotos y notificaciones push. Centraliza todo en números confiables: capital en calle, capital en riesgo, morosidad y eficiencia de recaudación, con reportes mensuales en PDF.",
+        "features": [
+          "Gestión de préstamos en múltiples monedas con simulador",
+          "Distribución automática FIFO en cobros diarios",
+          "Geolocalización de clientes y fotos de garantías",
+          "Panel financiero en tiempo real y reportes en PDF",
+          "Notificaciones push para cobros y morosidad"
+        ],
+        "technologies": [
+          "NestJS",
+          "Prisma",
+          "PostgreSQL",
+          "React Native",
+          "Expo",
+          "NativeWind",
+          "TanStack Query",
+          "Zustand",
+          "Firebase FCM",
+          "GitHub Actions"
+        ],
+        "links": {
+          "github": "Repositorio GitHub",
+          "githubUrl": "https://github.com/marquezQ/prestamosYA"
+        }
+      },
       {
         "id": "fastcashier",
         "name": "FastCashier",
@@ -95,10 +125,9 @@
           "TypeScript",
           "Tailwind CSS",
           "shadcn/ui",
-          "React Query",
           "Bootstrap",
-          "Material UI",
-          "Vite"
+          "React Native",
+          "Expo"
         ]
       },
       {
@@ -107,7 +136,8 @@
           "NestJS",
           "Node.js",
           "Laravel",
-          "Java"
+          "Java",
+          "Prisma"
         ]
       },
       {
@@ -125,7 +155,8 @@
           "GitHub Actions",
           "Nginx",
           "Cloudflare",
-          "Linux"
+          "Linux",
+          "PM2"
         ]
       }
     ]

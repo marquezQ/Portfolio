@@ -14,6 +14,7 @@ type Optimized = { path: string; src: string };
 const allImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/projects/*/*.{jpeg,jpg,png,gif}', { eager: true });
 
 const projectFolders: Record<string, string> = {
+  PrestamosYA: 'PrestamosYA',
   fastcashier: 'FastCashier',
   carpinpro: 'CarpinPro'
 };

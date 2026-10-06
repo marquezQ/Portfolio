@@ -6,6 +6,7 @@
     "stack": [
       "React",
       "TypeScript",
+      "React Native",
       "NestJS",
       "PostgreSQL",
       "AWS",
@@ -22,6 +23,35 @@
   "projects": {
     "title": "Featured Projects",
     "items": [
+      {
+        "id": "PrestamosYA",
+        "name": "PrestamosYA",
+        "subtitle": "Mobile app and API for loan management",
+        "description": "Mobile app with custom backend for lenders to manage their loan portfolio in Bolivianos and Dollars. Includes loan issuance with simulator, daily collection with automatic FIFO distribution, geolocated clients, guarantees with photos, and push notifications. Centralizes everything into reliable numbers: capital on street, capital at risk, delinquency, and collection efficiency, with monthly PDF reports.",
+        "features": [
+          "Multi-currency loan management with simulator",
+          "Automatic FIFO distribution for daily collections",
+          "Client geolocation and guarantee photos",
+          "Real-time financial dashboard and PDF reports",
+          "Push notifications for collections and delinquency"
+        ],
+        "technologies": [
+          "NestJS",
+          "Prisma",
+          "PostgreSQL",
+          "React Native",
+          "Expo",
+          "NativeWind",
+          "TanStack Query",
+          "Zustand",
+          "Firebase FCM",
+          "GitHub Actions"
+        ],
+        "links": {
+          "github": "GitHub Repository",
+          "githubUrl": "https://github.com/marquezQ/prestamosYA"
+        }
+      },
       {
         "id": "fastcashier",
         "name": "FastCashier",
@@ -95,10 +125,9 @@
           "TypeScript",
           "Tailwind CSS",
           "shadcn/ui",
-          "React Query",
           "Bootstrap",
-          "Material UI",
-          "Vite"
+          "React Native",
+          "Expo"
         ]
       },
       {
@@ -107,7 +136,8 @@
           "NestJS",
           "Node.js",
           "Laravel",
-          "Java"
+          "Java",
+          "Prisma"
         ]
       },
       {
@@ -125,7 +155,8 @@
           "GitHub Actions",
           "Nginx",
           "Cloudflare",
-          "Linux"
+          "Linux",
+          "PM2"
         ]
       }
     ]

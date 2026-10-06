@@ -21,6 +21,16 @@ const iconMap: Record<string, string> = {
   "shadcn/ui": "simple-icons:shadcnui",
   "React Query": "simple-icons:reactquery",
   "Leaflet": "simple-icons:leaflet",
+  "Prisma": "simple-icons:prisma",
+  "React Native": "simple-icons:react",
+  "Expo": "simple-icons:expo",
+  "NativeWind": "simple-icons:tailwindcss",
+  "TanStack Query": "simple-icons:reactquery",
+  "Zustand": "lucide:boxes",
+  "Firebase FCM": "simple-icons:firebase",
+  "Cloudinary": "simple-icons:cloudinary",
+  "PM2": "simple-icons:pm2",
+  "GitHub Actions": "simple-icons:githubactions",
   // Fallback
   "WebSockets": "lucide:network",
   "TypeORM": "lucide:database"
@@ -61,14 +71,18 @@ const getIcon = (tech: string) => iconMap[tech] || 'lucide:code';
 
     <!-- Botones de Acción -->
     <div class="flex flex-wrap gap-3 mt-auto pt-4">
-       <a href={project.links.demoUrl || "#"} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl bg-accent text-bg font-bold font-mono text-xs sm:text-sm uppercase tracking-wider hover:bg-accent-bright transition-all shadow-md shadow-accent/10 hover:-translate-y-0.5 active:translate-y-0">
-         <Icon name="lucide:external-link" class="w-4 h-4 stroke-[2.5]" />
-         {project.links.demo}
-       </a>
-       <a href={project.links.githubUrl || "#"} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl bg-bg border border-border text-text font-bold font-mono text-xs sm:text-sm uppercase tracking-wider hover:border-accent/40 hover:bg-hover transition-all hover:-translate-y-0.5 active:translate-y-0">
-         <Icon name="simple-icons:github" class="w-4 h-4" />
-         {project.links.github}
-       </a>
+       {project.links.demo && (
+         <a href={project.links.demoUrl || "#"} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl bg-accent text-bg font-bold font-mono text-xs sm:text-sm uppercase tracking-wider hover:bg-accent-bright transition-all shadow-md shadow-accent/10 hover:-translate-y-0.5 active:translate-y-0">
+           <Icon name="lucide:external-link" class="w-4 h-4 stroke-[2.5]" />
+           {project.links.demo}
+         </a>
+       )}
+       {project.links.github && (
+         <a href={project.links.githubUrl || "#"} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl bg-bg border border-border text-text font-bold font-mono text-xs sm:text-sm uppercase tracking-wider hover:border-accent/40 hover:bg-hover transition-all hover:-translate-y-0.5 active:translate-y-0">
+           <Icon name="simple-icons:github" class="w-4 h-4" />
+           {project.links.github}
+         </a>
+       )}
     </div>
   </div>
 
